@@ -2,11 +2,11 @@
 
 name: CI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
+  # push:
+    # branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -34,3 +34,21 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: use node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.15.4
+
+      - name: install packages
+        run: npm install
+
+      - name: build project
+        run: npm build
+
+      - name: lint check
+        run: npm run lint
+
+      - name: test check
+        run: npm run test
+
