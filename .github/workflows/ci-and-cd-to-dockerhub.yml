@@ -57,14 +57,14 @@ jobs:
       - name: install packages
         run: npm install
 
-      - name: build project
-        run: npm build
-
       - name: lint check
         run: npm run lint
 
       - name: test check
         run: npm run test:ci
+
+      - name: build project
+        run: npm run build:ci
 
       - name: build docker image
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }} .
