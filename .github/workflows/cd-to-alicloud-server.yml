@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  deploy-to-server:
     runs-on: ubuntu-latest
     
     steps:
@@ -25,10 +25,10 @@ jobs:
           pass: ${{ secrets.ALICLOUD_PASSWORD }}
           # execute commands on ssh
           script: # optional |
-            echo 'hello world starts'
-            docker stop $CONTAINER_NAME
-            docker rm $CONTAINER_NAME
-            docker rmi $IMAGE_NAME
-            docker pull $IMAGE_NAME
-            docker run -d -p 7000:80 --name=$CONTAINER_NAME $IMAGE_NAME
+            echo 'hello world starts' &&
+            docker stop $CONTAINER_NAME &&
+            docker rm $CONTAINER_NAME &&
+            docker rmi $IMAGE_NAME &&
+            docker pull $IMAGE_NAME &&
+            docker run -d -p 7000:80 --name=$CONTAINER_NAME $IMAGE_NAME &&
             echo 'hello world done'
