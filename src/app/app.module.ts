@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { OrdersComponent } from './components/orders/orders.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { HomeComponent, DashboardComponent, NotFoundComponent, OrdersComponent } from './components';
+import { MaterialDesignModule } from './material-design.module';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { MatCommonModule, MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -18,6 +22,13 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCommonModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatCardModule,
     AppRoutingModule
   ],
   providers: [],

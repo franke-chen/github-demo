@@ -1,10 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: ci-and-cd-to-dockerhub
 
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
+  # schedule
+    # -crom
   # push:
     # branches: [ main ]
   pull_request:
@@ -40,15 +42,35 @@ jobs:
         with:
           node-version: 14.15.4
 
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
       - name: install packages
         run: npm install
-
-      - name: build project
-        run: npm build
 
       - name: lint check
         run: npm run lint
 
-      - name: test check
-        run: npm run test:ci
+      # - name: test check
+        # run: npm run test:ci
 
+      - name: build project
+        run: npm run build:ci
+
+      - name: build docker image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }} .
+
+      - name: docker hub login
+        run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: push new docker image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
