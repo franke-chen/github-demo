@@ -1,10 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: ci-and-cd-to-dockerhub
 
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
+  # schedule
+    # -crom
   # push:
     # branches: [ main ]
   pull_request:
@@ -64,3 +66,11 @@ jobs:
       - name: test check
         run: npm run test:ci
 
+      - name: build docker image
+        run: docker build -t ${{ secrects.DOCKERHUB_USERNAME }}/${{ secrects.DOCKERHUB_REPO }} .
+
+      - name: docker hub login
+        run: echo '${{ secrects.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrects.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: push new docker image
+        run: docker push ${{ secrects.DOCKERHUB_USERNAME }}/${{ secrects.DOCKERHUB_REPO }}:latest
