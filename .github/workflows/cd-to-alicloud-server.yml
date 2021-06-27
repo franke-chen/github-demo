@@ -14,11 +14,11 @@ jobs:
         # uses: cross-the-world/ssh-pipeline@7f022867934a210af826af99ef80d96f03a094d5
         uses: cross-the-world/ssh-pipeline@v1.2.0
         env:
-          CONTAINER_NAME: 'hello-world-nginx'
+          CONTAINER_NAME: ${{ secrets.DOCKERHUB_REPO }}-nginx
           IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}
         with:
           # ssh remote host
-          host: ${{ secrets.ALICOUND_HOST }}
+          host: ${{ secrets.ALICLOUD_HOST }}
           # ssh remote user
           user: ${{ secrets.ALICLOUD_USER }}
           # ssh remote password
