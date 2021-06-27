@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
+  selected: Date | null = null;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.selected = new Date();
   }
-
 }
