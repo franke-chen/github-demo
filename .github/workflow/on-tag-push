@@ -1,0 +1,26 @@
+name: CI-With-Tag
+
+# Controls when the workflow will run
+on:
+  push:
+    tags:
+      - 'v*'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  pre-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run script
+        run: echo hello cloud77
+        
+      - name: get version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        
+      - name: echo version
+        run: echo ${{ steps.get_version.outputs.VERSION }}
+      
+      - name: echo github ref
+        run: echo ${{ github.ref }}
