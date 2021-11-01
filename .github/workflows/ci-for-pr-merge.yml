@@ -55,7 +55,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: set angular working dir
-        run: cd ClientApp
+        run: pwd && cd ./ClientApp && pwd
 
       - name: install packages
         run: npm install
