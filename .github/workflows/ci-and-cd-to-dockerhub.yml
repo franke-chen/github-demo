@@ -54,6 +54,9 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
+      - name: set angular working dir
+        run: cd ClientApp
+
       - name: install packages
         run: npm install
 
@@ -72,5 +75,5 @@ jobs:
       - name: docker hub login
         run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: push new docker image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
+      # - name: push new docker image
+        # run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
