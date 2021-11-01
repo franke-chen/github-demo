@@ -58,7 +58,7 @@ jobs:
         run: pwd && cd ./ClientApp && pwd
 
       - name: install packages
-        run: npm install
+        run: pwd && npm install
 
       - name: lint check
         run: npm run lint
