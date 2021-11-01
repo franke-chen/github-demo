@@ -54,23 +54,26 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
+      - name: set angular working dir
+        run: pwd && cd ./ClientApp && pwd
+
       - name: install packages
-        run: npm install
+        run: pwd && cd ./ClientApp && npm install
 
       - name: lint check
-        run: npm run lint
+        run: cd ./ClientApp && npm run lint
 
       # - name: test check
-        # run: npm run test:ci
+        # run: cd ./ClientApp && npm run test:ci
 
       - name: build project
-        run: npm run build:ci
+        run: cd ./ClientApp && npm run build:ci
 
       - name: build docker image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }} .
+        run: cd ./ClientApp && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }} .
 
-      - name: docker hub login
-        run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      # - name: docker hub login
+        # run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: push new docker image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
+      # - name: push new docker image
+        # run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest

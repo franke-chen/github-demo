@@ -396,4 +396,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-release-dir/*
+*/release-dir/*
