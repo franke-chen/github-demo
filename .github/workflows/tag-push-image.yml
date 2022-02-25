@@ -25,14 +25,20 @@ jobs:
       - name: echo github ref
         run: echo ${{ github.ref }}
 
-      # - name: build project
-      #   run: cd ./home-page && npm run build:ci
+      - name: build project
+        run: cd ./home-page && npm run build:ci
 
-      # - name: build docker image
-      #   run: cd ./home-page && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }} .
+      - name: build docker image with specific version tag
+        run: cd ./home-page && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ steps.get_version.outputs.VERSION }} .
 
-      # - name: docker hub login
-        # run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: build docker image with latest tag
+        run: cd ./home-page && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest .
 
-      # - name: push new docker image
-        # run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
+      - name: docker login
+        run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: push image to registry
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}${{ steps.get_version.outputs.VERSION }}
+
+      - name: push latest image to registry
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
