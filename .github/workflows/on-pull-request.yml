@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: ci-and-cd-to-dockerhub
+name: on-pull-request
 
 # Controls when the action will run.
 on:
@@ -11,9 +11,6 @@ on:
     # branches: [ main ]
   pull_request:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,16 +23,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
 
       - name: use node
         uses: actions/setup-node@v1
@@ -57,23 +44,12 @@ jobs:
       - name: set angular working dir
         run: pwd && cd ./ClientApp && pwd
 
-      - name: install packages
+      - name: install npm packages
         run: pwd && cd ./ClientApp && npm install
 
-      - name: lint check
+      - name: code lint check
         run: cd ./ClientApp && npm run lint
 
-      # - name: test check
-        # run: cd ./ClientApp && npm run test:ci
+      - name: unit test check
+        run: cd ./ClientApp && npm run test:ci
 
-      - name: build project
-        run: cd ./ClientApp && npm run build:ci
-
-      - name: build docker image
-        run: cd ./ClientApp && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }} .
-
-      # - name: docker hub login
-        # run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-
-      # - name: push new docker image
-        # run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest

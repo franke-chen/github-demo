@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { OrdersComponent } from './orders.component';
 
@@ -8,7 +11,12 @@ describe('OrdersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrdersComponent ]
+      declarations: [ OrdersComponent ],
+      imports: [
+        MatCardModule,
+        MatNativeDateModule,
+        MatDatepickerModule
+      ]
     })
     .compileComponents();
   });
