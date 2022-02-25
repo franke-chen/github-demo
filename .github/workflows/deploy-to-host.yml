@@ -10,7 +10,7 @@ on:
         default: 'latest'
 
 jobs:
-  deploy-to-server:
+  deploy-to-host:
     runs-on: ubuntu-latest
     
     steps:
