@@ -42,6 +42,9 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       
+      - name: npm install packages
+        run: cd ./home-page && npm install
+
       - name: build project
         run: cd ./home-page && npm run build:ci
 
