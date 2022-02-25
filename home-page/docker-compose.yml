@@ -3,6 +3,6 @@ services:
 
   angular-nginx:
     build: .
-    container_name: "hello-world-angular-nginx-server"
+    container_name: "cloud77-home-page-web"
     ports:
       - "7000:80"
