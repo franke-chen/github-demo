@@ -397,3 +397,5 @@ testem.log
 Thumbs.db
 
 */release-dir/*
+*/dist/*
+*/coverage/*
