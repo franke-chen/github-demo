@@ -1,0 +1,98 @@
+
+<div class="container col-lg-12" style="height: 100%;display: flex;flex-direction: column;">
+
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Personal Dashboard</span>
+      <span style="width: auto;">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">person</mat-icon>
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">more_vert</mat-icon>
+      </span>
+      <span class="example-spacer"></span>
+
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="width:auto;">
+        <span style="margin-right: 10px;">{{ name }}</span>
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>email</mat-icon>
+          <span>{{ email }}</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>dialpad</mat-icon>
+          <span>Redial</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>voicemail</mat-icon>
+          <span>Check voice mail</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </button>
+        <button mat-menu-item aria-label="Example logout icon" (click)="onLogoutClick();">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="content col-lg-12" style="flex: 1 1 auto;display: flex;flex-flow: row;padding: 0px;">
+
+    <mat-selection-list [multiple]="false" style="min-width: 200px;" (selectionChange)="onSelectionChange($event)">
+      <mat-list-option *ngFor="let item of items" [value]="item.value" [selected]="item.value === selectedItem.value" [routerLink]="item.value">
+        <span>{{ item.label }}</span>
+      </mat-list-option>
+    </mat-selection-list>
+
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>
+
+
+
+<!-- <div class="container col-lg-9" style="margin:auto">
+  <p>dashboard works!</p>
+  <button mat-raised-button color="primary">Primary</button>
+
+  <mat-vertical-stepper linear="true">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Fill out your address</ng-template>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-vertical-stepper>
+
+</div> -->

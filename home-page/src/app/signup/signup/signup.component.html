@@ -1,0 +1,94 @@
+<div class="container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Custom Toolbar</span>
+      <span class="example-spacer"></span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="card" style="margin: auto;">
+
+    <div class="card-header">
+      <h5>Sign Up</h5>
+    </div>
+
+    <mat-progress-bar mode="indeterminate" color="accent" style="margin-top: 5px;margin-bottom: 5px;"></mat-progress-bar>
+
+    <div class="card-body">
+      <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+        {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+      </button>
+
+      <mat-vertical-stepper [linear]="isLinear" #stepper>
+        <mat-step>
+          <ng-template matStepLabel>Privacy Policy (GDPR)</ng-template>
+          <div class="row">
+            <mat-checkbox class="col-sm-6">read terms</mat-checkbox>
+            <mat-checkbox class="col-sm-6" color="primary">read policy</mat-checkbox>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Email & Name</ng-template>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="Name">
+            </mat-form-field>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Email Confirmation</ng-template>
+          <div class="row">
+            <button mat-raised-button color="primary" class="col-sm-6">Already click link at email</button>
+            <button mat-raised-button color="accent" class="col-sm-6">Resend confirmation email</button>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Password</ng-template>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" placeholder="Password">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Password Again</mat-label>
+              <input matInput type="password" placeholder="Password again">
+            </mat-form-field>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+    </div>
+  </div>
+</div>

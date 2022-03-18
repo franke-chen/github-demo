@@ -1,0 +1,149 @@
+<div class="card">
+  <div class="card-header">
+    <p style="font-weight: bold;">Account Info</p>
+  </div>
+
+  <div class="card-body">
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" [(ngModel)]="email" disabled>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Username" [(ngModel)]="name" disabled>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-chip-list aria-label="Fish selection">
+        <mat-chip color="primary" selected>{{ role }}</mat-chip>
+        <mat-chip color="accent" selected>{{ role }}</mat-chip>
+      </mat-chip-list>
+    </div>
+
+    <br/>
+    <mat-divider></mat-divider>
+    <br/>
+
+    <mat-tab-group>
+      <mat-tab label="Profile">
+        <div style="width: 100%;height: 100%;" class="container">
+          <span class="text-info">Find no profile</span>
+          <div class="row">
+            <button mat-flat-button color="primary">Add my profile</button>
+          </div>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Surname</mat-label>
+              <input matInput placeholder="Surname" [(ngModel)]="profile.surname">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Given Name</mat-label>
+              <input matInput placeholder="GivenName" [(ngModel)]="profile.givenName">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Company</mat-label>
+              <input matInput placeholder="Company" [(ngModel)]="profile.company">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Company Type</mat-label>
+              <input matInput placeholder="Company Type" [(ngModel)]="profile.companyType">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Phone</mat-label>
+              <input matInput placeholder="Phone" [(ngModel)]="profile.phone">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>City</mat-label>
+              <input matInput placeholder="City" [(ngModel)]="profile.city">
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Title</mat-label>
+              <input matInput placeholder="Title" [(ngModel)]="profile.title">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Contact</mat-label>
+              <input matInput placeholder="Contact" [(ngModel)]="profile.contact">
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="License">
+        <div class="container">
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Scope</mat-label>
+              <mat-select value="global">
+                <mat-option value="global">Global</mat-option>
+                <mat-option value="usa">USA</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Region</mat-label>
+              <mat-select value="global">
+                <mat-option value="global">Global</mat-option>
+                <mat-option value="usa">USA</mat-option>
+                <mat-option value="china">China</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Type</mat-label>
+              <input matInput placeholder="Type" [(ngModel)]="license.licenseType" disabled>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Status</mat-label>
+              <input matInput placeholder="Status" [(ngModel)]="license.status" disabled>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Region</mat-label>
+              <input matInput placeholder="Region" [(ngModel)]="license.region" disabled>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Scope</mat-label>
+              <input matInput placeholder="Scope" [(ngModel)]="license.scope" disabled>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Option1</mat-label>
+              <input matInput placeholder="Option1" [(ngModel)]="license.option1" disabled>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Option2</mat-label>
+              <input matInput placeholder="Option2" [(ngModel)]="license.option2" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </mat-tab>
+    </mat-tab-group>
+
+
+
+    <mat-divider></mat-divider>
+
+
+
+  </div>
+
+</div>
