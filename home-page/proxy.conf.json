@@ -3,12 +3,12 @@
     "target": "http://localhost:6359",
     "secure": true
   },
-  "/management-api": {
+  "/client-api": {
     "target": "http://localhost:6359",
     "secure": true
   },
-  "/api": {
-    "target": "http://localhost:4389",
+  "/management-api": {
+    "target": "http://localhost:6359",
     "secure": true
   }
 }

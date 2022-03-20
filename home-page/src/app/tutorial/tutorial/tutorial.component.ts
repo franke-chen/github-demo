@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Person, TutorialService } from './turorial.service';
+import { version } from "package.json";
 
 @Component({
   selector: 'app-tutorial',
@@ -14,9 +15,10 @@ export class TutorialComponent implements OnInit {
     this.persons$ = this.service.getPersons();
   }
 
+  title: string = "";
   name = 'Cory Rylan';
   ngOnInit(): void {
-
+    this.title = `Cloud77 Web (v${version})`;
   }
 
   persons$: Observable<Person[]>;

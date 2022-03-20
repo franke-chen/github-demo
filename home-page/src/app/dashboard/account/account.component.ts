@@ -1,62 +1,90 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-
-export interface License {
-  id: number;
-  userId: number;
-  email: string;
-  status: string;
-  licenseType: string;
-  region: string;
-  scope: string;
-  option1: number;
-  option2: number;
-  option3: string;
-
-  timestamp: Date
-}
-
-export interface Profile {
-  id: number,
-  uid: number,
-  surname: string;
-  givenName: string;
-  city: string;
-  phone: string;
-  company: string;
-  companyType: string;
-  title: string;
-  contact: string;
-}
+import { Router } from '@angular/router';
+import { License, Profile } from 'src/app/interface';
+import { AccountService } from './account.service';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  styleUrls: ['./account.component.css'],
+  providers: [AccountService]
 })
 export class AccountComponent implements OnInit {
 
-  constructor(private client: HttpClient) { }
+  constructor(private service: AccountService, private router: Router) { }
 
   ngOnInit(): void {
-    this.client.get<License>("/management-api/licenses/20789").subscribe(res => {
+
+    this.service.getTodos();
+
+    const  data = this.service.getAccountFromCache();
+    if (data) {
+      this.email = data.email;
+      this.name = data.name;
+      this._loadData();
+    } else {
+      this.router.navigate(["/login"]);
+    }
+  }
+
+  profile: Profile = {
+    id: 0,
+    uid: 0,
+    surname: "",
+    givenName: "",
+    company: "",
+    companyType: "",
+    city: "",
+    title: "",
+    phone: "",
+    contact: ""
+  }
+
+  license: License = {
+    id: 0,
+    userId: 0,
+    email: "",
+    licenseType: "",
+    status: "",
+    scope: "",
+    region: "",
+    option1: 0,
+    option2: 0,
+    option3: "",
+  }
+
+  email: string = "";
+  name:string = "";
+  role:string = "";
+  userId: number = 0;
+
+  private async _loadData(): Promise<void> {
+
+    await this.service.getAPIKey().then(res => {
+      console.log("------apikey--------");
+      console.log(res.apikey);
+    });
+
+    await this.service.loginPreCheck(this.email).then(res => {
+      console.log("------login check--------");
+      this.userId = res.userId;
+    });
+
+    await this.service.tokenCheck().then(res => {
+      console.log("------token check--------");
       console.log(res);
+      this.role = res.role;
+    })
+
+    await this.service.getLicense(this.userId).then(res => {
+      console.log("------license--------");
       this.license = res;
     });
 
-    this.client.get<Profile>("/management-api/licenses/profiles/20789").subscribe(res => {
-      console.log(res);
+    await this.service.getProfile(this.userId).then(res => {
+      console.log("------profile--------");
       this.profile = res;
     });
 
-    this.name = sessionStorage.getItem("name");
-    this.email = sessionStorage.getItem("email");
-    this.role = sessionStorage.getItem("role");
   }
-
-  profile!: Profile;
-  license!: License;
-  email!: string | null | undefined;
-  name!:string | null | undefined;
-  role!:string | null | undefined;
 }

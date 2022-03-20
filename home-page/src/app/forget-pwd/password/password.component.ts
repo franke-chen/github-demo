@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { version } from "package.json";
 
 @Component({
   selector: 'app-password',
@@ -23,8 +24,11 @@ export class PasswordComponent implements OnInit {
       console.log(res);
     });
 
+    this.title = `Cloud77 Web (v${version})`;
+
     document.title = "Cloud77 Forget Password";
   }
+  title: string = "";
 
   getToken(): void {
     // send email

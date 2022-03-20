@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelectionListChange } from '@angular/material/list';
 import { Router } from '@angular/router';
+import { version } from "package.json";
 
 interface DashboardItem {
   label: string,
@@ -27,8 +28,9 @@ export class DashboardComponent implements OnInit {
 
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
+  title: string = "";
 
-  constructor(private _formBuilder: FormBuilder, private client: HttpClient, private router: Router) {}
+  constructor(private _formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -37,17 +39,9 @@ export class DashboardComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+    this.title = `Cloud77 Web (v${version})`;
 
     document.title = "Cloud77 Dashboard";
-
-    this.client.get<{ apikey: string}>("/login-api/info/apikey").subscribe(res => {
-      console.log(res);
-      sessionStorage.setItem("apikey", res['apikey']);
-    });
-
-    this.client.get("/login-api/prelogins?email=280908640@qq.com").subscribe(res => {
-      console.log(res);
-    });
 
     // this.client.get("/login-api/accounts?email=chenqinglong@danfoss.com").subscribe(res => {
     //   console.log(res);

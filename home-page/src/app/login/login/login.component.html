@@ -5,9 +5,13 @@
 
     <div class="container content">
       <div class="row">
+        <button type="submit" mat-raised-button color="primary" style="text-align: left;">{{ title }}</button>
+      </div>
+
+      <div class="row">
         <mat-form-field>
-          <mat-label>Email/Username</mat-label>
-          <input matInput placeholder="Email/Username" autocomplete="off" [(ngModel)]="account" (change)="onAccountChange($event);">
+          <mat-label>Email / Username</mat-label>
+          <input matInput placeholder="Email / Username" autocomplete="off" [(ngModel)]="account" (change)="onAccountChange($event);">
         </mat-form-field>
       </div>
       <div class="row">
@@ -18,7 +22,7 @@
       </div>
 
       <div class="row">
-        <mat-checkbox color="primary">Remember Me</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="rememberme">Remember Me</mat-checkbox>
         <a style="flex: 1 1 auto;"></a>
         <a style="float: right;" [routerLink]="['/forget-password']" [relativeTo]="" routerLinkActive="active">Forgot Password</a>
       </div>

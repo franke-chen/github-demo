@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { fromEvent } from 'rxjs';
-import { LoginService, TokenDto } from './login.service';
+import { TokenDto } from 'src/app/interface';
+import { LoginService } from './login.service';
+import { version } from "package.json";
 
 @Component({
   selector: 'app-login',
@@ -19,6 +21,9 @@ export class LoginComponent implements OnInit {
 
   account: string = "";
   password: string = "";
+  rememberme: boolean = true;
+
+  title: string = "";
 
   ngOnInit(): void {
     fromEvent(document, "keydown").subscribe((event: Event) => {
@@ -31,12 +36,19 @@ export class LoginComponent implements OnInit {
       }
     })
 
-    this.service.getAPIKey().then(res => {
-      console.log(res);
-    })
-    this.service.getProducts().then(res => {
-      console.log(res);
-    })
+    if (!sessionStorage.getItem("apikey")) {
+      this.service.getAPIKey().then(res => {
+        console.log(res);
+      })
+    }
+
+    const data = this.service.getAccountFromCache();
+    if (data) {
+      this.account = data.email;
+      this.rememberme = data.rememberme;
+    }
+
+    this.title = `Cloud77 Web (v${version})`;
 
     document.title = "Cloud77 Login";
   }
@@ -63,7 +75,7 @@ export class LoginComponent implements OnInit {
       name: this.account.includes("@") ? undefined : this.account.toLowerCase(),
       password: this.password
     }).then(res => {
-      this.service.saveTokenInCache(res as TokenDto);
+      this.service.saveToken(res as TokenDto, this.rememberme);
       return Promise.resolve();
     }, err => {
       console.error(err);

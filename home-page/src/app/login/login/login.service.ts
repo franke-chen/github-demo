@@ -1,37 +1,11 @@
 import { HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { TokenDto } from "src/app/interface";
 import { BackendService } from "../../backend.service";
-
-export interface TokenDto {
-  email: string,
-  user: string,
-  role: string
-  access_token: string,
-  refresh_token: string,
-}
-
-export interface PreLogin {
-  email: string,
-  hasPassword: boolean,
-  isAuthenticated: boolean,
-  userId: number
-}
 
 @Injectable()
 export class LoginService extends BackendService {
 
-  getAPIKey(): Promise<any> {
-    return this._client.get(`${this.LoginAPIEndpoint}/info/apikey`).toPromise();
-  }
-
-  getProducts(): Promise<any> {
-    return this._client.get(`${this.LoginAPIEndpoint}/products`).toPromise();
-  }
-
-  loginPreCheck(email: string): Promise<PreLogin> {
-    const params = new HttpParams().set("email", email);
-    return this._client.get<PreLogin>(`${this.LoginAPIEndpoint}/prelogins`, { params: params }).toPromise();
-  }
 
   getToken(user: { email?: string, name?: string, password: string }): Promise<any> {
     return this.getLoginToken(user);
@@ -69,13 +43,16 @@ export class LoginService extends BackendService {
      return this._client.get(`${this.LoginAPIEndpoint}/token`, { params: params }).toPromise();
    }
 
-   public saveTokenInCache(token: TokenDto): void {
-     sessionStorage.setItem("name", token.user ? token.user : "");
-     sessionStorage.setItem("email", token.email);
-     sessionStorage.setItem("role", token.role);
-     sessionStorage.setItem("access_token", token.access_token);
-     sessionStorage.setItem("refresh_token", token.refresh_token);
-   }
+   public saveToken(token: TokenDto, reme: boolean = false): void {
+    sessionStorage.setItem("access_token", token.access_token);
+    sessionStorage.setItem("refresh_token", token.refresh_token);
+    sessionStorage.setItem("name", token.user ? token.user : "");
+    sessionStorage.setItem("email", token.email);
+
+    if (reme) {
+     sessionStorage.setItem("rememberme", "true");
+    }
+  }
 
    GetResetToken(email: string): Promise<any> {
     return this._client.get(`${this.LoginAPIEndpoint}/passwords/tokens?email=${email}`).toPromise();
