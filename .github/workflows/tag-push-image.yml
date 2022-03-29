@@ -22,28 +22,31 @@ jobs:
       - name: echo version
         run: echo ${{ steps.get_version.outputs.VERSION }}
       
-      - name: echo github ref
-        run: echo ${{ github.ref }}
+      # - name: echo github ref
+      #   run: echo ${{ github.ref }}
 
-      - name: use node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.15.4
+      # - name: use node
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: 14.15.4
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+      # - name: Cache node modules
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: cache-node-modules
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-build-${{ env.cache-name }}-
+      #       ${{ runner.os }}-build-
+      #       ${{ runner.os }}-
       
-      - name: npm install packages
-        run: cd ./home-web && npm install
+      # - name: npm install packages
+      #   run: cd ./home-web && npm install
+
+      - name: print package.json
+        run: cat ./home-web/package.json
 
       - name: Update version in package.json
         # You may pin to the exact commit or the version.
@@ -56,26 +59,29 @@ jobs:
           # Custom dir to the package
           PACKAGEJSON_DIR: "home-web"
 
-      - name: build project
-        run: cd ./home-web && npm run build:ci
+      - name: print package.json again
+        run: cat ./home-web/package.json
 
-      - name: set up docker
-        uses: docker/setup-buildx-action@v1
+      # - name: build project
+      #   run: cd ./home-web && npm run build:ci
 
-      - name: echo docker version
-        run: docker version
+      # - name: set up docker
+      #   uses: docker/setup-buildx-action@v1
 
-      - name: build docker image with specific version tag
-        run: cd ./home-web && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ steps.get_version.outputs.VERSION }} .
+      # - name: echo docker version
+      #   run: docker version
 
-      - name: build docker image with latest tag
-        run: cd ./home-web && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest .
+      # - name: build docker image with specific version tag
+      #   run: cd ./home-web && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ steps.get_version.outputs.VERSION }} .
 
-      - name: docker login
-        run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      # - name: build docker image with latest tag
+      #   run: cd ./home-web && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest .
 
-      - name: push image to registry
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ steps.get_version.outputs.VERSION }}
+      # - name: docker login
+      #   run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: push latest image to registry
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
+      # - name: push image to registry
+      #   run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ steps.get_version.outputs.VERSION }}
+
+      # - name: push latest image to registry
+      #   run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
