@@ -1,0 +1,65 @@
+# This is a basic workflow to help you get started with Actions
+
+name: push-gh-pages
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  # schedule
+    # -crom
+  # push:
+    # branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  push-gh-pages:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: use node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.15.4
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: install npm packages
+        run: pwd && cd ./home-web && npm install
+
+      - name: Angular Deploy gh-pages Actions
+        # You may pin to the exact commit or the version.
+        # uses: AhsanAyaz/angular-deploy-gh-pages-actions@0e4f1a953d00116ca38fbf1bcdb37f91923015ef
+        uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.2
+        with:
+          # Github access token token used to deploy on gh_pages. You can find it on Github.
+          github_access_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          # The directory of the angular project, in which all the commands will run
+          angular_project_dir: ./home-web
+          # Build configuration for the angular app
+          build_configuration: production
+          # base href for the app
+          base_href: /cloud77-homepage/
+          # branch on which the angular build will be deployed
+          deploy_branch: 'gh-pages'
+          # The folder in which `ng build` provides its output. This is the folder which will be deployed to the `deploy_branch`.
+          angular_dist_build_folder: dist/home-web
+
