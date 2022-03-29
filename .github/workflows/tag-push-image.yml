@@ -48,6 +48,14 @@ jobs:
       - name: print package.json
         run: cat ./home-web/package.json
 
+      # - name:  'Automated Version Bump'
+      #   uses:  'phips28/gh-action-bump-version@master'
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+      #     PACKAGEJSON_DIR:  'home-web'
+      #   with:
+      #     tag-prefix:  'v'
+
       - name: Update version in package.json
         # You may pin to the exact commit or the version.
         # uses: maks-stupak/gh-action-bump-version@68745b36f06428d175b5aec775a41540ac1788aa
@@ -56,6 +64,7 @@ jobs:
           # Prefix that is used for the git tag
           tag-prefix: "v"
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           # Custom dir to the package
           PACKAGEJSON_DIR: "home-web"
 
