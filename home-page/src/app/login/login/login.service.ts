@@ -1,11 +1,43 @@
 import { HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { TokenDto } from "src/app/interface";
+import { PreLogin, TokenDto } from "src/app/interface";
 import { BackendService } from "../../backend.service";
 
+export interface AccountData {
+  account: string | undefined
+  rememberme: boolean
+}
 @Injectable()
 export class LoginService extends BackendService {
 
+  public getAccountFromCache(): AccountData | undefined {
+    const data: AccountData = {
+      account: undefined,
+      rememberme: false
+    }
+
+    if (sessionStorage.getItem("email")) {
+      if (!data.account) {
+        data.account = String(sessionStorage.getItem("email"));
+      }
+    }
+
+    if (sessionStorage.getItem("name")) {
+      if (!data.account) {
+        data.account = String(sessionStorage.getItem("name"));
+      }
+    }
+
+    if (!data.account) {
+      return;
+    }
+
+    const reme = sessionStorage.getItem("rememberme");
+    if (reme && reme === "true") {
+      data.rememberme = true;
+    }
+    return data;
+  }
 
   getToken(user: { email?: string, name?: string, password: string }): Promise<any> {
     return this.getLoginToken(user);
@@ -56,5 +88,10 @@ export class LoginService extends BackendService {
 
    GetResetToken(email: string): Promise<any> {
     return this._client.get(`${this.LoginAPIEndpoint}/passwords/tokens?email=${email}`).toPromise();
+  }
+
+  public loginPreCheck(email: string): Promise<PreLogin> {
+    const params = new HttpParams().set("email", email);
+    return this._client.get<PreLogin>(`${this.LoginAPIEndpoint}/prelogins`, { params: params }).toPromise();
   }
 }

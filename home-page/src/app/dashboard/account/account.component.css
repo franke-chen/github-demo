@@ -1,3 +1,8 @@
+:host {
+  /* width: inherit;
+  height: inherit; */
+}
+
 mat-form-field {
   min-width: 500px;
 }

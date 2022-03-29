@@ -20,6 +20,8 @@ export class PasswordComponent implements OnInit {
   password2: string = "";
 
   ngOnInit(): void {
+
+    // account is valid
     this.client.get("/login-api/prelogins?email=280908640@qq.com").subscribe(res => {
       console.log(res);
     });
@@ -38,7 +40,7 @@ export class PasswordComponent implements OnInit {
   }
 
   savePassword(): void {
-    this.client.put(`/login-api/passwords?email=${this.email}`, {
+    this.client.put(`/login-api/passwords/forget`, {
       email: this.email,
       token: this.token,
       password: this.password

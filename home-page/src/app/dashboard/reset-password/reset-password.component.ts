@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { SNACKBAR_DURATION } from 'src/environments/environment';
 import { ResetPasswordService } from './reset-password.service';
 
 @Component({
@@ -17,7 +18,23 @@ export class ResetPasswordComponent implements OnInit {
     private service: ResetPasswordService) { }
 
   ngOnInit(): void {
+    this.service.pageInitCheck(true).then(account => {
+      console.log("page can init");
+      console.log(account);
+      if (account) {
+        this.email = account.email;
+      }
+    }, err => {
+      console.error(err);
+      console.log("page can not init");
+      this.router.navigate(["/login"]);
+    });
   }
+
+  email: string = "";
+  password: string = "";
+  passwordNew: string = "";
+  passwordNewAgain: string = "";
 
   currentPasswordIsCorrect(): boolean {
     return true;
@@ -29,15 +46,19 @@ export class ResetPasswordComponent implements OnInit {
 
   saveNewPassword(): void {
     if (this.currentPasswordIsCorrect() && this.newPasswordIsValid()) {
-      this.service.updatePassword().then(() => {
-        this.snackbar.open("Info", "Password is updated, please login again.", { duration: 2000 })
+      this.service.updatePassword({
+        email: this.email,
+        password: this.password,
+        newPassword: this.passwordNew
+      }).then(() => {
+        // this.snackbar.open("Info", "Password is updated, please login again.", { duration: SNACKBAR_DURATION })
         this.service.clearLogin();
         setTimeout(() => {
           this.router.navigate(["/login"]);
-        }, 2100);
+        }, 1000);
       }, err => {
         console.log(err);
-        this.snackbar.open("Error", err.error.message, { duration: 3000 })
+        this.snackbar.open("Error", err.error.message, { duration: SNACKBAR_DURATION })
       })
     }
   }

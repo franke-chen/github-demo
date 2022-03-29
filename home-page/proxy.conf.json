@@ -10,5 +10,13 @@
   "/management-api": {
     "target": "http://localhost:6359",
     "secure": true
+  },
+  "/api": {
+    "target": "http://localhost:6359",
+    "secure": true
+  },
+  "/api2": {
+    "target": "http://localhost:6359",
+    "secure": true
   }
 }

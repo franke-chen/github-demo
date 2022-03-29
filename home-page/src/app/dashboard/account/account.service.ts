@@ -1,15 +1,49 @@
+import { HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BackendService } from "src/app/backend.service";
-import { License, Profile } from "src/app/interface";
+import { Device, DevicePostBody, License, LicenseKey, LicensePostBody, Profile, ProfilePostBody, Region, Scope } from "src/app/interface";
 
 @Injectable()
 export class AccountService extends BackendService {
 
   getLicense(userId: number): Promise<License> {
-    return this._client.get<License>(`${this.ClientAPIEndpoint}/licenses/${userId}`).toPromise();
+    const params = new HttpParams().set("userId", userId.toString());
+    return this._client.get<License>(`${this.ClientAPIEndpoint}/licenses`, { params: params }).toPromise();
+  }
+
+  getLicenseKey(userId: number): Promise<LicenseKey> {
+    const params = new HttpParams().set("userId", userId.toString());
+    return this._client.get<LicenseKey>(`${this.ClientAPIEndpoint}/licenses/keys`, { params: params }).toPromise();
   }
 
   getProfile(userId: number): Promise<Profile> {
-    return this._client.get<Profile>(`${this.ClientAPIEndpoint}/profiles/${userId}`).toPromise();
+    const params = new HttpParams().set("userId", userId.toString());
+    return this._client.get<Profile>(`${this.ClientAPIEndpoint}/profiles`, { params: params }).toPromise();
+  }
+
+  getDevices(userId: number): Promise<Device[]> {
+    const params = new HttpParams().set("userId", userId.toString());
+    return this._client.get<Device[]>(`${this.ClientAPIEndpoint}/devices`, { params: params }).toPromise();
+  }
+
+  getRegions(): Promise<Region[]> {
+    return this._client.get<Region[]>(`${this.ClientAPIEndpoint}/info/regions`).toPromise();
+  }
+
+  getScopes(): Promise<Scope[]> {
+    return this._client.get<Scope[]>(`${this.ClientAPIEndpoint}/info/scopes`).toPromise();
+  }
+
+  postProfile(body: ProfilePostBody): Promise<HttpResponse<void>> {
+    return this._client.post<void>(`${this.ClientAPIEndpoint}/profiles`, body, { observe: "response" }).toPromise();
+  }
+
+  postLicense(body: LicensePostBody): Promise<HttpResponse<void>> {
+    return this._client.post<void>(`${this.ClientAPIEndpoint}/licenses`, body, { observe: "response" }).toPromise();
+  }
+
+  postDevice(body: DevicePostBody): Promise<any> {
+    console.log(body);
+    return this._client.post(`${this.ClientAPIEndpoint}/devices`, body).toPromise();
   }
 }

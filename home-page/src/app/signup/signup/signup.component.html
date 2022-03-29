@@ -2,7 +2,10 @@
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <span>{{ title }}</span>
-      <span class="example-spacer"></span>
+      <span style="flex: 1 1 auto;"></span>
+      <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+        {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+      </button>
     </mat-toolbar-row>
   </mat-toolbar>
 
@@ -15,9 +18,6 @@
     <mat-progress-bar mode="indeterminate" color="accent" style="margin-top: 5px;margin-bottom: 5px;"></mat-progress-bar>
 
     <div class="card-body">
-      <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-        {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-      </button>
 
       <mat-vertical-stepper [linear]="isLinear" #stepper>
         <mat-step>
@@ -27,7 +27,7 @@
             <mat-checkbox class="col-sm-6" color="primary">read policy</mat-checkbox>
           </div>
           <div>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
           </div>
         </mat-step>
 
@@ -36,28 +36,32 @@
           <div class="row">
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
-              <input matInput placeholder="Email">
+              <input matInput placeholder="Email" [(ngModel)]="email">
             </mat-form-field>
           </div>
           <div class="row">
             <mat-form-field appearance="outline">
               <mat-label>Name</mat-label>
-              <input matInput placeholder="Name">
+              <input matInput placeholder="Name" [(ngModel)]="name">
             </mat-form-field>
           </div>
           <div>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext (click)="sendEmailToken()">Next</button>
           </div>
         </mat-step>
 
         <mat-step>
-          <ng-template matStepLabel>Email Confirmation</ng-template>
+          <ng-template matStepLabel>Email Token</ng-template>
           <div class="row">
-            <button mat-raised-button color="primary" class="col-sm-6">Already click link at email</button>
-            <button mat-raised-button color="accent" class="col-sm-6">Resend confirmation email</button>
+            <mat-form-field appearance="outline">
+              <mat-label>Token From Email</mat-label>
+              <input matInput placeholder="Name" [(ngModel)]="token">
+            </mat-form-field>
           </div>
+
           <div>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button mat-raised-button color="accent">Not receive email, send again.</button>
           </div>
         </mat-step>
 
@@ -66,27 +70,38 @@
           <div class="row">
             <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
-              <input matInput type="password" placeholder="Password">
+              <input matInput type="password" placeholder="Password" [(ngModel)]="password">
             </mat-form-field>
           </div>
           <div class="row">
             <mat-form-field appearance="outline">
               <mat-label>Password Again</mat-label>
-              <input matInput type="password" placeholder="Password again">
+              <input matInput type="password" placeholder="Password again" [(ngModel)]="passwordAgain">
             </mat-form-field>
           </div>
           <div>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
           </div>
         </mat-step>
 
         <mat-step>
-          <ng-template matStepLabel>Done</ng-template>
-          <p>You are now done.</p>
+          <ng-template matStepLabel>Submit</ng-template>
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-raised-button color="primary" (click)="postAccount()">Submit my Request</button>
           </div>
+
+          <mat-divider></mat-divider>
+
+          <ng-container *ngIf="success">
+            <div class="row">
+              <p class="text-info">You are now done.</p>
+            </div>
+
+            <div>
+              <button mat-raised-button color="accent" routerLink="/login">Go To Login</button>
+            </div>
+          </ng-container>
+
         </mat-step>
       </mat-vertical-stepper>
     </div>

@@ -1,8 +1,8 @@
 version: '3.9'
 services:
 
-  angular-nginx:
+  home-web-nginx-server:
     build: .
-    container_name: "cloud77-home-page-web"
+    container_name: "cloud77-home-web"
     ports:
       - "7000:80"

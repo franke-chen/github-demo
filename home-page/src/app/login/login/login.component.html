@@ -1,11 +1,12 @@
-<app-banner></app-banner>
 <div style="flex: 1 1 auto;width: 100%;display: flex;">
 
   <div style="margin: auto;border: 1px solid black;background-color: white;" class="col-sm-4">
 
     <div class="container content">
       <div class="row">
-        <button type="submit" mat-raised-button color="primary" style="text-align: left;">{{ title }}</button>
+        <button type="submit" mat-raised-button color="primary" style="text-align: left;" routerLink="">
+          <a>{{ title }}</a>
+        </button>
       </div>
 
       <div class="row">
@@ -24,7 +25,7 @@
       <div class="row">
         <mat-checkbox color="primary" [(ngModel)]="rememberme">Remember Me</mat-checkbox>
         <a style="flex: 1 1 auto;"></a>
-        <a style="float: right;" [routerLink]="['/forget-password']" [relativeTo]="" routerLinkActive="active">Forgot Password</a>
+        <a style="float: right;"  target="_blank" [routerLink]="['/forget-password']" [relativeTo]="" routerLinkActive="active">Forgot Password</a>
       </div>
 
       <div class="row">
@@ -32,7 +33,9 @@
       </div>
 
       <div class="row">
-        <button type="button" mat-button color="primary" [routerLink]="['/signup']" [relativeTo]="" routerLinkActive="active">Sign Up</button>
+        <button type="button" mat-button color="primary" (click)="signup.click()">
+          <a #signup target="_blank" [routerLink]="['/signup']" [relativeTo]="" routerLinkActive="active">Sign Up</a>
+        </button>
       </div>
     </div>
 
