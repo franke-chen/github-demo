@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 export class Person {
-	constructor(public personId:number, public name:string, public city:string) {
-	}
+  constructor(public personId: number, public name: string, public city: string) {
+
+  }
 }
 
 const PERSONS: Person[] = [

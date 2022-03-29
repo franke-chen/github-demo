@@ -1,1 +1,1 @@
-export const SNACKBAR_DURATION: number = 5000;
+export const SNACKBAR_DURATION = 5000;

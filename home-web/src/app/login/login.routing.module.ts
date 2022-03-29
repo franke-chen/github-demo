@@ -1,17 +1,17 @@
-import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { NotFoundComponent } from "../shared/not-found/not-found.component";
-import { LoginComponent } from "./login/login.component";
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { NotFoundComponent } from '../shared/not-found/not-found.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   imports: [
     RouterModule.forChild([{
-      path: "",
-      pathMatch: "full",
+      path: '',
+      pathMatch: 'full',
       component: LoginComponent
     }, {
-      path: "**", component: NotFoundComponent
+      path: '**', component: NotFoundComponent
     }
     ])
   ],

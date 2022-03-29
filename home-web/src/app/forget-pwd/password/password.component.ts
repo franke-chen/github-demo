@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { version } from "package.json";
+import { version } from 'package.json';
 
 @Component({
   selector: 'app-password',
@@ -11,32 +11,34 @@ export class PasswordComponent implements OnInit {
 
   constructor(private client: HttpClient) { }
 
-  email: string = "";
+  email = '';
 
-  token: string = "";
+  token = '';
 
-  password: string = "";
+  password = '';
 
-  password2: string = "";
+  password2 = '';
+
+  title = '';
 
   ngOnInit(): void {
 
     // account is valid
-    this.client.get("/login-api/prelogins?email=280908640@qq.com").subscribe(res => {
+    this.client.get('/login-api/prelogins?email=280908640@qq.com').subscribe(res => {
       console.log(res);
     });
 
     this.title = `Cloud77 Web (v${version})`;
 
-    document.title = "Cloud77 Forget Password";
+    document.title = 'Cloud77 Forget Password';
   }
-  title: string = "";
+
 
   getToken(): void {
     // send email
     this.client.put(`/login-api/passwords/tokens?email=${this.email}`, {}).subscribe(res => {
       console.log(res);
-    })
+    });
   }
 
   savePassword(): void {
@@ -46,6 +48,6 @@ export class PasswordComponent implements OnInit {
       password: this.password
     }).subscribe(res => {
       console.log(res);
-    })
+    });
   }
 }

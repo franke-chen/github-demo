@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Person, TutorialService } from './turorial.service';
-import { version } from "package.json";
+import { version } from 'package.json';
 
 @Component({
   selector: 'app-tutorial',
@@ -11,17 +11,18 @@ import { version } from "package.json";
 })
 export class TutorialComponent implements OnInit {
 
+  title = '';
+  name = 'Cory Rylan';
+
+  persons$: Observable<Person[]>;
+
   constructor(private service: TutorialService) {
     this.persons$ = this.service.getPersons();
   }
 
-  title: string = "";
-  name = 'Cory Rylan';
   ngOnInit(): void {
     this.title = `Cloud77 Web (v${version})`;
   }
-
-  persons$: Observable<Person[]>;
 
   reverse(): void {
     import('./string-helper').then(module => {

@@ -3,7 +3,7 @@ import { MatCommonModule, MatNativeDateModule, MatOptionModule, MatRippleModule 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -20,8 +20,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatPaginatorModule } from "@angular/material/paginator";
-import { MatDialogModule } from "@angular/material/dialog";
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 
 

@@ -1,20 +1,20 @@
 export interface APIKey {
-  apikey: string
+  apikey: string;
 }
 
 export interface TokenDto {
-  email: string,
-  user: string,
-  role: string
-  access_token: string,
-  refresh_token: string,
+  email: string;
+  user: string;
+  role: string;
+  access_token: string;
+  refresh_token: string;
 }
 
 export interface PreLogin {
-  email: string,
-  hasPassword: boolean,
-  isAuthenticated: boolean,
-  userId: number
+  email: string;
+  hasPassword: boolean;
+  isAuthenticated: boolean;
+  userId: number;
 }
 
 export interface License {
@@ -31,8 +31,8 @@ export interface License {
 }
 
 export interface Profile {
-  id: number,
-  uid: number,
+  id: number;
+  uid: number;
   surname: string;
   givenName: string;
   city: string;
@@ -44,8 +44,8 @@ export interface Profile {
 }
 
 export interface ProfilePostBody {
-  email: string,
-  userId: number,
+  email: string;
+  userId: number;
   surname: string;
   givenName: string;
   city: string;
@@ -68,35 +68,35 @@ export interface DevicePostBody {
   email: string;
   machineCode: string;
   installDate: string;
-  appVer: string
+  appVer: string;
 }
 
 export interface Region {
-  id: number,
-  guid: string,
-  name: string,
-  section: string
+  id: number;
+  guid: string;
+  name: string;
+  section: string;
 }
 
 export interface Scope {
-  id: number,
-  guid: string,
-  appName: string,
-  name: string,
-  description: string
+  id: number;
+  guid: string;
+  appName: string;
+  name: string;
+  description: string;
 }
 
 export interface LicenseKey {
-  key: string,
-  expiredAt: string
+  key: string;
+  expiredAt: string;
 }
 
 export interface Device {
-  id: number,
-  uid: number,
-  machineCode: string,
-  installDate: string,
-  appVer: string,
-  creationDate: string,
-  lastDownloadDate?: string
+  id: number;
+  uid: number;
+  machineCode: string;
+  installDate: string;
+  appVer: string;
+  creationDate: string;
+  lastDownloadDate?: string;
 }

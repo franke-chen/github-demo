@@ -13,11 +13,57 @@ import { AccountService } from './account.service';
 })
 export class AccountComponent implements OnInit {
 
+  profile: Profile = {
+    id: 0,
+    uid: 0,
+    surname: '',
+    givenName: '',
+    company: '',
+    companyType: '',
+    city: '',
+    title: '',
+    phone: '',
+    contact: ''
+  };
+
+  license: License = {
+    id: 0,
+    userId: 0,
+    email: '',
+    licenseType: '',
+    status: '',
+    scope: '',
+    region: '',
+    option1: 0,
+    option2: 0,
+    option3: '',
+  };
+
+  foundLicense = false;
+  foundProfile = false;
+
+  showProfile = false;
+
+  email = '';
+  name = '';
+  role = '';
+  userId = 0;
+
+  scopeId = '';
+  regionId = '';
+
+  regions: Region[] = [];
+  scopes: Scope[] = [];
+  devices: Device[] = [];
+
+  profileBtnDisabled = false;
+  licenseBtnDisabled = false;
+
   constructor(private service: AccountService, private router: Router, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.service.pageInitCheck(true).then(account => {
-      console.log("page can init");
+      console.log('page can init');
       console.log(account);
       if (account) {
         this.email = account.email;
@@ -28,61 +74,15 @@ export class AccountComponent implements OnInit {
       }
     }, err => {
       console.error(err);
-      console.log("page can not init");
-      this.router.navigate(["/login"]);
+      console.log('page can not init');
+      this.router.navigate(['/login']);
     });
   }
-
-  profile: Profile = {
-    id: 0,
-    uid: 0,
-    surname: "",
-    givenName: "",
-    company: "",
-    companyType: "",
-    city: "",
-    title: "",
-    phone: "",
-    contact: ""
-  }
-
-  license: License = {
-    id: 0,
-    userId: 0,
-    email: "",
-    licenseType: "",
-    status: "",
-    scope: "",
-    region: "",
-    option1: 0,
-    option2: 0,
-    option3: "",
-  }
-
-  foundLicense: boolean = false;
-  foundProfile: boolean = false;
-
-  showProfile: boolean = false;
-
-  email: string = "";
-  name:string = "";
-  role:string = "";
-  userId: number = 0;
-
-  scopeId: string = "";
-  regionId: string = "";
-
-  regions: Region[] = [];
-  scopes: Scope[] = [];
-  devices: Device[] = [];
-
-  profileBtnDisabled: boolean = false;
-  licenseBtnDisabled: boolean = false;
 
   private async _pageLoadData(): Promise<void> {
 
     await this.service.getProfile(this.userId).then(res => {
-      console.log("------profile--------");
+      console.log('------profile--------');
       this.profile = res;
       this.foundProfile = true;
     }, err => {
@@ -106,7 +106,7 @@ export class AccountComponent implements OnInit {
 
     this.service.getLicenseKey(this.userId).then(res => {
       console.log(res);
-    })
+    });
   }
 
   saveProfile(): void {
@@ -129,10 +129,10 @@ export class AccountComponent implements OnInit {
         contact: this.profile.contact,
         title: this.profile.title
       }).then(res => {
-        this.snackbar.open("Info", "Already submit your profile", { duration: SNACKBAR_DURATION });
+        this.snackbar.open('Info', 'Already submit your profile', { duration: SNACKBAR_DURATION });
         this.foundProfile = true;
       }, err => {
-        this.snackbar.open("Error", "Fail to submit your profile", { duration: SNACKBAR_DURATION });
+        this.snackbar.open('Error', 'Fail to submit your profile', { duration: SNACKBAR_DURATION });
       }).finally(() => {
         setTimeout(() => {
           this.profileBtnDisabled = false;
@@ -154,9 +154,9 @@ export class AccountComponent implements OnInit {
         this.getLicense();
       }, 0);
     }, err => {
-      console.error(err)
+      console.error(err);
       this.licenseBtnDisabled = false;
-    })
+    });
   }
 
   createMockDevice(): void {
@@ -164,50 +164,50 @@ export class AccountComponent implements OnInit {
     this.service.postDevice({
       email: this.email,
       userId: this.userId,
-      machineCode: "6EC00669251",
-      installDate: "20210318XX4431",
-      appVer: "1.0.0.0"
+      machineCode: '6EC00669251',
+      installDate: '20210318XX4431',
+      appVer: '1.0.0.0'
     }).then(() => {
-      this.snackbar.open("Info", "Already submit your device", { duration: SNACKBAR_DURATION });
+      this.snackbar.open('Info', 'Already submit your device', { duration: SNACKBAR_DURATION });
       this.getDevices();
     }, err => {
       console.log(err);
-      this.snackbar.open("Error", "Fail to submit your device", { duration: SNACKBAR_DURATION });
-    })
+      this.snackbar.open('Error', 'Fail to submit your device', { duration: SNACKBAR_DURATION });
+    });
   }
 
   asyncTest(): void {
     new Promise((resolve, reject) => {
       if (!this.foundProfile) {
-        resolve("find profile");
+        resolve('find profile');
       }
       else {
-        reject("find no profile");
+        reject('find no profile');
       }
     }, ).then(res => {
       console.log(res);
-      return Promise.resolve<string>("find profile");
+      return Promise.resolve<string>('find profile');
     }, err => {
       console.log(err);
-      return Promise.resolve("already catch error");
+      return Promise.resolve('already catch error');
     })
     .then(res => {
       console.log(res);
     }, err => {
       console.error(err);
-      return Promise.resolve("todo")
+      return Promise.resolve('todo');
     })
     .catch(err => {
       console.log(err);
     })
     .finally(() => {
-      console.log("end");
-    })
+      console.log('end');
+    });
   }
 
   async getLicense(): Promise<void> {
     await this.service.getLicense(this.userId).then(res => {
-      console.log("------license--------");
+      console.log('------license--------');
       this.license = res;
       this.foundLicense = true;
     }, err => {
@@ -223,6 +223,6 @@ export class AccountComponent implements OnInit {
       this.devices = res;
     }, err => {
       console.error(err);
-    })
+    });
   }
 }

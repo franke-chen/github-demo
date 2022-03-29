@@ -1,5 +1,5 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export class ApiKeyInterceptor implements HttpInterceptor {
 
@@ -7,16 +7,16 @@ export class ApiKeyInterceptor implements HttpInterceptor {
 
     let clone = req.clone();
 
-    const apikey = sessionStorage.getItem("apikey");
+    const apikey = sessionStorage.getItem('apikey');
     if (apikey)
     {
-      clone = clone.clone({ headers: clone.headers.set("x-api-key", apikey)});
+      clone = clone.clone({ headers: clone.headers.set('x-api-key', apikey)});
     }
 
-    const token = sessionStorage.getItem("access_token");
+    const token = sessionStorage.getItem('access_token');
     if (token)
     {
-      clone = clone.clone({ headers: clone.headers.set("Authorization", "Bearer " + token)});
+      clone = clone.clone({ headers: clone.headers.set('Authorization', 'Bearer ' + token)});
     }
 
     return next.handle(clone);

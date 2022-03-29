@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,12 @@ export class RouteActivateGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const token = sessionStorage.getItem("access_token");
-    const name = sessionStorage.getItem("name");
+    const token = sessionStorage.getItem('access_token');
+    const name = sessionStorage.getItem('name');
 
     if (!token || !name)
     {
-      this.router.navigate(["/login"]);
+      this.router.navigate(['/login']);
       return false;
     }
     else

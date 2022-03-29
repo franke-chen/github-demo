@@ -12,11 +12,17 @@ import { SettingService } from './setting.service';
 })
 export class SettingComponent implements OnInit {
 
+  emailConfirm = '';
+  email = '';
+  userId = -1;
+  role = '';
+  disableDelete = true;
+
   constructor(private snackbar: MatSnackBar, private router: Router, private service: SettingService) { }
 
   ngOnInit(): void {
     this.service.pageInitCheck(true).then(account => {
-      console.log("page can init");
+      console.log('page can init');
       if (account) {
         console.log(account);
         this.email = account.email;
@@ -25,27 +31,20 @@ export class SettingComponent implements OnInit {
       }
     }, err => {
       console.error(err);
-      console.log("page can not init");
-      this.router.navigate(["/login"]);
+      console.log('page can not init');
+      this.router.navigate(['/login']);
     });
   }
-
-  emailConfirm: string = "";
-  email: string = "";
-  userId: number = -1;
-  role: string = "";
 
   emailChange(): void {
     this.disableDelete = !(this.emailConfirm.toLowerCase() === this.email);
   }
 
-  disableDelete: boolean = true;
-
   deleteAccount(): void {
     this.delete().then(() => {
-      this.snackbar.open("Info", "Delete account", { duration: SNACKBAR_DURATION });
+      this.snackbar.open('Info', 'Delete account', { duration: SNACKBAR_DURATION });
       setTimeout(() => {
-        this.router.navigate([""]);
+        this.router.navigate(['']);
       }, SNACKBAR_DURATION + 1000);
     });
   }

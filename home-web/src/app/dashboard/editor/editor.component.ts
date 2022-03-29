@@ -13,7 +13,7 @@ export class EditorComponent implements OnInit {
   repo: "https://github.com/scttcper/ngx-codemirror"
 };
 const hello: string = 'world';
-`
+`;
 
   constructor() { }
 

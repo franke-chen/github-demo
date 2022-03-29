@@ -12,6 +12,11 @@ import { ResetPasswordService } from './reset-password.service';
 })
 export class ResetPasswordComponent implements OnInit {
 
+  email = '';
+  password = '';
+  passwordNew = '';
+  passwordNewAgain = '';
+
   constructor(
     private snackbar: MatSnackBar,
     private router: Router,
@@ -19,22 +24,17 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.pageInitCheck(true).then(account => {
-      console.log("page can init");
+      console.log('page can init');
       console.log(account);
       if (account) {
         this.email = account.email;
       }
     }, err => {
       console.error(err);
-      console.log("page can not init");
-      this.router.navigate(["/login"]);
+      console.log('page can not init');
+      this.router.navigate(['/login']);
     });
   }
-
-  email: string = "";
-  password: string = "";
-  passwordNew: string = "";
-  passwordNewAgain: string = "";
 
   currentPasswordIsCorrect(): boolean {
     return true;
@@ -51,15 +51,15 @@ export class ResetPasswordComponent implements OnInit {
         password: this.password,
         newPassword: this.passwordNew
       }).then(() => {
-        // this.snackbar.open("Info", "Password is updated, please login again.", { duration: SNACKBAR_DURATION })
+        // this.snackbar.open('Info', 'Password is updated, please login again.', { duration: SNACKBAR_DURATION })
         this.service.clearLogin();
         setTimeout(() => {
-          this.router.navigate(["/login"]);
+          this.router.navigate(['/login']);
         }, 1000);
       }, err => {
         console.log(err);
-        this.snackbar.open("Error", err.error.message, { duration: SNACKBAR_DURATION })
-      })
+        this.snackbar.open('Error', err.error.message, { duration: SNACKBAR_DURATION });
+      });
     }
   }
 }
