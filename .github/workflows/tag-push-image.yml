@@ -52,6 +52,7 @@ jobs:
         with:
           # Prefix that is used for the git tag
           tag-prefix: "v"
+        env:
           # Custom dir to the package
           PACKAGEJSON_DIR: "home-web"
 
