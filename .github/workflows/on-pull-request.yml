@@ -42,14 +42,13 @@ jobs:
             ${{ runner.os }}-
 
       - name: set angular working dir
-        run: pwd && cd ./home-page && pwd
+        run: pwd && cd ./home-web && pwd
 
       - name: install npm packages
-        run: pwd && cd ./home-page && npm install
+        run: pwd && cd ./home-web && npm install
 
       - name: code lint check
-        run: cd ./home-page && npm run lint
+        run: cd ./home-web && npm run lint
 
       - name: unit test check
-        run: cd ./home-page && npm run test:ci
-
+        run: cd ./home-web && npm run test:ci
