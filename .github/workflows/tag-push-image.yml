@@ -14,9 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.ref }}
           
+      - name: echo github ref
+        run: echo ${{ github.ref }}
+
       - name: get version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
@@ -24,8 +25,6 @@ jobs:
       - name: echo version
         run: echo ${{ steps.get_version.outputs.VERSION }}
       
-      # - name: echo github ref
-      #   run: echo ${{ github.ref }}
 
       # - name: use node
       #   uses: actions/setup-node@v1
