@@ -57,6 +57,7 @@ jobs:
           PACKAGEJSON_DIR:  'home-web'
         with:
           tag-prefix:  'v'
+          target-branch: 'main'
 
       # - name: Update version in package.json
       #   # You may pin to the exact commit or the version.
