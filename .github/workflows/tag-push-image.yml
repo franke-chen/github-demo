@@ -14,7 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        
+        with:
+          ref: ${{ github.ref }}
+          
       - name: get version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
@@ -22,60 +24,76 @@ jobs:
       - name: echo version
         run: echo ${{ steps.get_version.outputs.VERSION }}
       
-      - name: echo github ref
-        run: echo ${{ github.ref }}
+      # - name: echo github ref
+      #   run: echo ${{ github.ref }}
 
-      - name: use node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.15.4
+      # - name: use node
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: 14.15.4
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+      # - name: Cache node modules
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: cache-node-modules
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-build-${{ env.cache-name }}-
+      #       ${{ runner.os }}-build-
+      #       ${{ runner.os }}-
       
-      - name: npm install packages
-        run: cd ./home-web && npm install
+      # - name: npm install packages
+      #   run: cd ./home-web && npm install
 
-      - name: Update version in package.json
-        # You may pin to the exact commit or the version.
-        # uses: maks-stupak/gh-action-bump-version@68745b36f06428d175b5aec775a41540ac1788aa
-        uses: maks-stupak/gh-action-bump-version@v7.1.5
-        with:
-          # Prefix that is used for the git tag
-          tag-prefix: "v"
+      - name: print package.json
+        run: cat ./home-web/package.json
+
+      - name:  'Automated Version Bump'
+        uses:  'phips28/gh-action-bump-version@master'
         env:
-          # Custom dir to the package
-          PACKAGEJSON_DIR: "home-web"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          PACKAGEJSON_DIR:  'home-web'
+        with:
+          tag-prefix:  'v'
+          target-branch: 'main'
 
-      - name: build project
-        run: cd ./home-web && npm run build:ci
+      # - name: Update version in package.json
+      #   # You may pin to the exact commit or the version.
+      #   # uses: maks-stupak/gh-action-bump-version@68745b36f06428d175b5aec775a41540ac1788aa
+      #   uses: maks-stupak/gh-action-bump-version@v7.1.5
+      #   with:
+      #     # Prefix that is used for the git tag
+      #     tag-prefix: "v"
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+      #     # Custom dir to the package
+      #     PACKAGEJSON_DIR: "home-web"
 
-      - name: set up docker
-        uses: docker/setup-buildx-action@v1
+      - name: print package.json again
+        run: cat ./home-web/package.json
 
-      - name: echo docker version
-        run: docker version
+      # - name: build project
+      #   run: cd ./home-web && npm run build:ci
 
-      - name: build docker image with specific version tag
-        run: cd ./home-web && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ steps.get_version.outputs.VERSION }} .
+      # - name: set up docker
+      #   uses: docker/setup-buildx-action@v1
 
-      - name: build docker image with latest tag
-        run: cd ./home-web && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest .
+      # - name: echo docker version
+      #   run: docker version
 
-      - name: docker login
-        run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      # - name: build docker image with specific version tag
+      #   run: cd ./home-web && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ steps.get_version.outputs.VERSION }} .
 
-      - name: push image to registry
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ steps.get_version.outputs.VERSION }}
+      # - name: build docker image with latest tag
+      #   run: cd ./home-web && docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest .
 
-      - name: push latest image to registry
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
+      # - name: docker login
+      #   run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username=${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      # - name: push image to registry
+      #   run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ steps.get_version.outputs.VERSION }}
+
+      # - name: push latest image to registry
+      #   run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
