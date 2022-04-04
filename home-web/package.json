@@ -1,6 +1,6 @@
 {
   "name": "@cloud77/home-web",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 61326 --proxy-config ./proxy.conf.json",
