@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SharedModule } from '../shared/shared.module';
 import { LoginRoutingModule } from './login.routing.module';
 import { LoginComponent } from './login/login.component';
 
@@ -21,7 +20,6 @@ import { LoginComponent } from './login/login.component';
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule,
     MatCommonModule,
     MatCheckboxModule,
     MatFormFieldModule,

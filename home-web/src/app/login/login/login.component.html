@@ -4,8 +4,9 @@
 
     <div class="container content">
       <div class="row">
-        <button type="submit" mat-raised-button color="primary" style="text-align: left;" routerLink="">
-          <a>{{ title }}</a>
+        <button type="submit" mat-raised-button color="primary" style="text-align: left;">
+          <mat-icon>{{ serviceStatus }}</mat-icon>
+          <a style="float: right;">{{ title }}</a>
         </button>
       </div>
 
@@ -33,7 +34,7 @@
       </div>
 
       <div class="row">
-        <button type="button" mat-button color="primary" (click)="signup.click()">
+        <button type="button" mat-button color="primary">
           <a #signup target="_blank" [routerLink]="['/signup']" [relativeTo]="" routerLinkActive="active">Sign Up</a>
         </button>
       </div>

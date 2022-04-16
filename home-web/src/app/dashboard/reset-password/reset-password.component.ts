@@ -23,7 +23,7 @@ export class ResetPasswordComponent implements OnInit {
     private service: ResetPasswordService) { }
 
   ngOnInit(): void {
-    this.service.pageInitCheck(true).then(account => {
+    this.service.tokenCheck().then(account => {
       console.log('page can init');
       console.log(account);
       if (account) {
@@ -52,7 +52,11 @@ export class ResetPasswordComponent implements OnInit {
         newPassword: this.passwordNew
       }).then(() => {
         // this.snackbar.open('Info', 'Password is updated, please login again.', { duration: SNACKBAR_DURATION })
-        this.service.clearLogin();
+
+        sessionStorage.clear();
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 1000);

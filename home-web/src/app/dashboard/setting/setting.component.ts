@@ -21,7 +21,7 @@ export class SettingComponent implements OnInit {
   constructor(private snackbar: MatSnackBar, private router: Router, private service: SettingService) { }
 
   ngOnInit(): void {
-    this.service.pageInitCheck(true).then(account => {
+    this.service.tokenCheck().then(account => {
       console.log('page can init');
       if (account) {
         console.log(account);

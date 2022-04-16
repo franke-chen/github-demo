@@ -2,8 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { APIKey, PreLogin } from './interface';
+import { APIKey } from './interface';
 import * as clone from 'clone';
+
 export interface Account {
   email: string;
   name: string;
@@ -11,9 +12,7 @@ export interface Account {
   userId: number;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BackendService {
 
   constructor(
@@ -33,50 +32,27 @@ export class BackendService {
     return this.client.get(`${this.LoginAPIEndpoint}/health`, { responseType: 'text' }).toPromise<string>();
   }
 
-  private getAPIKey(): Promise<APIKey> {
-
-    if (sessionStorage.getItem('apikey')) {
-      return of({ apikey: String(sessionStorage.getItem('apikey')) }).toPromise();
+  public getAPIKey(): Promise<APIKey> {
+    const apiKey = localStorage.getItem('apikey');
+    if (apiKey) {
+      return of({ apikey: String(apiKey) }).toPromise();
     } else {
       return this.client.get<APIKey>(`${this.LoginAPIEndpoint}/info/apikey`).pipe(
         tap(res => {
-          sessionStorage.setItem('apikey', res.apikey);
+          localStorage.setItem('apikey', res.apikey);
         })
       ).toPromise();
     }
   }
 
-  public clearLogin(): void {
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('refresh_token');
-    const reme = sessionStorage.getItem('rememberme');
-    if (!reme || reme !== 'true') {
-      sessionStorage.removeItem('email');
-      sessionStorage.removeItem('name');
-    }
-  }
-
-  private tokenCheck(): Promise<Account> {
-    return this.client.get<Account>(`${this.LoginAPIEndpoint}/token/check`).toPromise();
-  }
-
-  async pageInitCheck(protect: boolean): Promise<Account | void> {
+  async tokenCheck(): Promise<Account | void> {
 
     return new Promise<Account | void>(async (resolve, reject) => {
-
-      const key = await this.getAPIKey();
-      console.log(key);
-
-      if (!protect) {
-        resolve(undefined);
-      }
-      else {
-        const account = await this.tokenCheck();
-        if (account) {
-          resolve(account);
-        } else {
-          reject('Not Allowed');
-        }
+      const account = await this.client.get<Account>(`${this.LoginAPIEndpoint}/token/check`).toPromise();
+      if (account) {
+        resolve(account);
+      } else {
+        reject('Not Allowed');
       }
     });
   }

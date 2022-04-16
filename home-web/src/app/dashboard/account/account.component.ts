@@ -62,7 +62,7 @@ export class AccountComponent implements OnInit {
   constructor(private service: AccountService, private router: Router, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.service.pageInitCheck(true).then(account => {
+    this.service.tokenCheck().then(account => {
       console.log('page can init');
       console.log(account);
       if (account) {
