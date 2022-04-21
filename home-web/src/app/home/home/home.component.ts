@@ -1,7 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, ContentChild, ContentChildren, Inject, Input, OnInit, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { Guid } from 'guid-typescript';
 import { from, fromEvent, generate, interval, merge, of, timer } from 'rxjs';
-import { delay, map, mapTo, mergeAll, mergeMap, startWith, take, takeUntil, tap } from 'rxjs/operators';
+import { catchError, delay, map, mapTo, mergeAll, mergeMap, startWith, take, takeUntil, tap } from 'rxjs/operators';
+
+interface Bookmark {
+  title: string;
+  url: string;
+  keywords: string[];
+}
+
+@Component({
+  selector: 'app-home-child',
+  template: `<button mat-raised-button color='primary'>{{ content }}</button><p>{{ content }}</p><ng-content></ng-content>`
+})
+export class HomeChildComponent {
+
+  @Input()
+  content: string = "default content";
+
+  @ContentChildren(MatButton)
+  buttons!: QueryList<MatButton>;
+
+}
 
 @Component({
   selector: 'app-home',
@@ -13,9 +36,18 @@ export class HomeComponent implements OnInit {
   public title = 'cloud77 home page';
   public guid = '';
 
-  constructor() { }
+  bookmarks?: Bookmark[];
+
+  constructor(@Inject(PLATFORM_ID) private platformId: object, private http: HttpClient) { }
+
+  @ViewChildren(HomeChildComponent)
+  public childs!: QueryList<HomeChildComponent>;
 
   ngOnInit(): void {
+
+    console.log(this.platformId);
+    console.log(isPlatformBrowser(this.platformId));
+
     this.guid = Guid.create().toString();
 
     const keydown$ = fromEvent<KeyboardEvent>(document, 'keydown');
@@ -85,5 +117,57 @@ export class HomeComponent implements OnInit {
       ).subscribe(x => btn.innerHTML = x);
     }
 
+    setTimeout(() => {
+      this.childs.forEach(child => {
+        child.content = "todo for child";
+        child.buttons.forEach(button => {
+          button.color = 'accent';
+          button.disabled = true;
+        });
+
+      });
+    }, 2000);
+
+
+    of({ user: 'franke' }).subscribe(a => console.log(a));
+
+    of(1,2,3,4,5).pipe(
+      tap(i => {
+        console.log('----------------');
+        console.log(i);
+      }),
+      map(i => {
+        if (i === 4) {
+          throw new Error("bad number");
+        } else {
+          return i;
+        }
+      }),
+      catchError(err => {
+        console.error(err.message);
+        return of(-1);
+      })
+    ).subscribe(res => {
+      console.log('------------------after');
+      console.log(res);
+    })
+
+    this.http.get<Bookmark[]>("assets/bookmarks.json").subscribe(res => {
+      console.log(res);
+      this.bookmarks = res;
+    })
+
+
   }
+
+  confirm(): void {
+    // const result = confirm("are you sure");
+    // console.log(result);
+
+    // const person = prompt("input name", "todo");
+    // console.log(person);
+
+    alert("todo\ntodo");
+  }
+
 }

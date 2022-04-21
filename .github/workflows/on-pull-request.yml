@@ -51,4 +51,4 @@ jobs:
         run: cd ./home-web && npm run lint
 
       - name: unit test check
-        run: cd ./home-web && npm run test:ci
+        run: cd ./home-web && npm run test-ci
