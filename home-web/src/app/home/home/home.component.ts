@@ -19,7 +19,7 @@ interface Bookmark {
 export class HomeChildComponent {
 
   @Input()
-  content: string = "default content";
+  content = 'default content';
 
   @ContentChildren(MatButton)
   buttons!: QueryList<MatButton>;
@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit {
 
     setTimeout(() => {
       this.childs.forEach(child => {
-        child.content = "todo for child";
+        child.content = 'todo for child';
         child.buttons.forEach(button => {
           button.color = 'accent';
           button.disabled = true;
@@ -131,14 +131,14 @@ export class HomeComponent implements OnInit {
 
     of({ user: 'franke' }).subscribe(a => console.log(a));
 
-    of(1,2,3,4,5).pipe(
+    of(1 , 2, 3, 4, 5).pipe(
       tap(i => {
         console.log('----------------');
         console.log(i);
       }),
       map(i => {
         if (i === 4) {
-          throw new Error("bad number");
+          throw new Error('bad number');
         } else {
           return i;
         }
@@ -150,24 +150,24 @@ export class HomeComponent implements OnInit {
     ).subscribe(res => {
       console.log('------------------after');
       console.log(res);
-    })
+    });
 
-    this.http.get<Bookmark[]>("assets/bookmarks.json").subscribe(res => {
+    this.http.get<Bookmark[]>('assets/bookmarks.json').subscribe(res => {
       console.log(res);
       this.bookmarks = res;
-    })
+    });
 
 
   }
 
   confirm(): void {
-    // const result = confirm("are you sure");
+    // const result = confirm('are you sure');
     // console.log(result);
 
-    // const person = prompt("input name", "todo");
+    // const person = prompt('input name', 'todo');
     // console.log(person);
 
-    alert("todo\ntodo");
+    alert('todo\ntodo');
   }
 
 }

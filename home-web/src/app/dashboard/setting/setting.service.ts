@@ -1,11 +1,10 @@
 import { HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { BackendService } from 'src/app/backend.service';
-import { License, Profile } from 'src/app/interface';
+import { AppCommonService } from 'src/app/services';
 
 @Injectable()
-export class SettingService extends BackendService {
+export class SettingService extends AppCommonService {
 
   deleteAccount(email: string, userId: number): Promise<HttpResponse<void>> {
     let params: HttpParams = new HttpParams();

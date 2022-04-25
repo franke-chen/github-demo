@@ -54,8 +54,6 @@ export class ResetPasswordComponent implements OnInit {
         // this.snackbar.open('Info', 'Password is updated, please login again.', { duration: SNACKBAR_DURATION })
 
         sessionStorage.clear();
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
 
         setTimeout(() => {
           this.router.navigate(['/login']);

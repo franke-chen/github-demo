@@ -73,8 +73,6 @@ export class DashboardComponent implements OnInit {
   onLogoutClick(): void
   {
     sessionStorage.clear();
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
     this.router.navigate(['/login']);
   }
 }

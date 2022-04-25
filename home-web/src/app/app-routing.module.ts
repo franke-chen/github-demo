@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { TokenGuard, APIKeyGuard } from './route-activate.guard';
+import { TokenGuard, APIKeyGuard } from './guards';
 
 const routes: Routes = [
   {

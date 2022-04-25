@@ -33,9 +33,9 @@ export class MessageComponent implements OnInit {
 
       switch (type) {
         case 'token':
-          const email = localStorage.getItem('email');
-          const accessToken = localStorage.getItem('access_token');
-          const refreshToken = localStorage.getItem('refresh_token');
+          const email = sessionStorage.getItem('email');
+          const accessToken = sessionStorage.getItem('access_token');
+          const refreshToken = sessionStorage.getItem('refresh_token');
 
           if (email && accessToken && refreshToken) {
             payload = JSON.stringify({

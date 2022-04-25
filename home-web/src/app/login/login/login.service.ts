@@ -1,13 +1,13 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PreLogin, TokenDto } from 'src/app/interface';
-import { BackendService } from '../../backend.service';
+import { PreLogin, TokenDto } from 'src/app/interfaces';
+import { AppCommonService } from 'src/app/services';
 
 @Injectable()
-export class LoginService extends BackendService {
+export class LoginService extends AppCommonService {
 
   public getAccountFromCache(): string | undefined {
-    const email = localStorage.getItem('email');
+    const email = sessionStorage.getItem('email');
     if (email) {
       return String(email);
     } else {
@@ -24,7 +24,7 @@ export class LoginService extends BackendService {
    }
 
   public StartAuthSlient(): Promise<any> {
-    return this.getLoginToken({ name: localStorage.getItem('name'), token: localStorage.getItem('refresh_token') });
+    return this.getLoginToken({ name: sessionStorage.getItem('name'), token: sessionStorage.getItem('refresh_token') });
   }
 
   private getLoginToken(user: {
@@ -52,15 +52,15 @@ export class LoginService extends BackendService {
    }
 
   public saveToken(token: TokenDto, reme: boolean = false): void {
-    localStorage.setItem('access_token', token.access_token);
-    localStorage.setItem('refresh_token', token.refresh_token);
+    sessionStorage.setItem('access_token', token.access_token);
+    sessionStorage.setItem('refresh_token', token.refresh_token);
 
     if (reme) {
-      localStorage.setItem('name', token.user);
-      localStorage.setItem('email', token.email);
+      sessionStorage.setItem('name', token.user);
+      sessionStorage.setItem('email', token.email);
      } else {
-       localStorage.removeItem('name');
-       localStorage.removeItem('email');
+      sessionStorage.removeItem('name');
+      sessionStorage.removeItem('email');
      }
   }
 

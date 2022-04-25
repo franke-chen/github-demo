@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fromEvent, of, Subject } from 'rxjs';
-import { TokenDto } from 'src/app/interface';
+import { TokenDto } from 'src/app/interfaces';
 import { LoginService } from './login.service';
 import { version } from 'package.json';
 import { tap } from 'rxjs/operators';
@@ -100,6 +100,8 @@ export class LoginComponent implements OnInit {
     this.clone_test();
   }
 
+  token?: TokenDto;
+
   login(): void {
 
     if (!this.account) {
@@ -114,7 +116,8 @@ export class LoginComponent implements OnInit {
       name: this.account.includes('@') ? undefined : this.account.toLowerCase(),
       password: this.password
     }).then(res => {
-      this.service.saveToken(res as TokenDto, this.rememberme);
+      // this.service.saveToken(res as TokenDto, this.rememberme);
+      this.token = res as TokenDto;
       return Promise.resolve();
     }, err => {
       console.error(err);
@@ -191,13 +194,19 @@ export class LoginComponent implements OnInit {
     } else {
       switch (this.from) {
         case 'management-web':
-          document.location.href = `${environment.management_web}/dashboard`;
+          document.location.href = `${environment.management_web}/login?access_token=${this.token?.access_token}&refresh_token=${this.token?.refresh_token}`;
           break;
         case 'super-web':
-          document.location.href = `${environment.super_web}/dashboard`;
+          document.location.href = `${environment.super_web}/login?access_token=${this.token?.access_token}&refresh_token=${this.token?.refresh_token}`;
           break;
         default:
-          this.router.navigate(['/dashboard']);
+          console.log('default');
+          sessionStorage.setItem('access_token', this.token?.access_token as string);
+          sessionStorage.setItem('refresh_token', this.token?.refresh_token as string);
+
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 0);
           break;
       }
     }

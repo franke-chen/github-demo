@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Device, License, Profile, Region, Scope } from 'src/app/interface';
+import { Device, License, Profile, Region, Scope } from 'src/app/interfaces';
 import { SNACKBAR_DURATION } from 'src/environments/environment.share';
 import { AccountService } from './account.service';
 

@@ -21,8 +21,6 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { ApiKeyInterceptor } from '../api-key-interceptor';
-import { BackendService } from '../backend.service';
 import { AccountComponent } from './account/account.component';
 import { DashboardRoutingModule } from './dashboard.routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -69,8 +67,7 @@ import { SettingComponent } from './setting/setting.component';
     HttpClientModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true },
-    BackendService
+
   ],
   bootstrap: [DashboardComponent]
 })

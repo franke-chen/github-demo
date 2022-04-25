@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { APIKey } from './interface';
+import { APIKey } from '../interfaces';
 import * as clone from 'clone';
 
 export interface Account {
@@ -13,7 +13,7 @@ export interface Account {
 }
 
 @Injectable()
-export class BackendService {
+export class AppCommonService {
 
   constructor(
     public client: HttpClient
@@ -32,14 +32,20 @@ export class BackendService {
     return this.client.get(`${this.LoginAPIEndpoint}/health`, { responseType: 'text' }).toPromise<string>();
   }
 
+  private isValid = false;
+
+  public get tokenIsValid(): boolean {
+    return this.isValid;
+  }
+
   public getAPIKey(): Promise<APIKey> {
-    const apiKey = localStorage.getItem('apikey');
+    const apiKey = sessionStorage.getItem('apikey');
     if (apiKey) {
       return of({ apikey: String(apiKey) }).toPromise();
     } else {
       return this.client.get<APIKey>(`${this.LoginAPIEndpoint}/info/apikey`).pipe(
         tap(res => {
-          localStorage.setItem('apikey', res.apikey);
+          sessionStorage.setItem('apikey', res.apikey);
         })
       ).toPromise();
     }
@@ -50,6 +56,7 @@ export class BackendService {
     return new Promise<Account | void>(async (resolve, reject) => {
       const account = await this.client.get<Account>(`${this.LoginAPIEndpoint}/token/check`).toPromise();
       if (account) {
+        this.isValid = true;
         resolve(account);
       } else {
         reject('Not Allowed');
