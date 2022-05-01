@@ -1,0 +1,33 @@
+footer {
+  display: flex;
+  align-items: center;
+  line-height: 20px;
+}
+
+.footer {
+  margin: auto;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  line-height: 20px;
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+}
+
+#twitter-logo {
+  height: 40px;
+  margin: 0 8px;
+}
+
+#youtube-logo {
+  height: 40px;
+  margin: 0 16px;
+}
+
+#twitter-logo:hover,
+#youtube-logo:hover {
+  opacity: 0.8;
+}

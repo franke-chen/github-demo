@@ -1,0 +1,11 @@
+<ng-container *ngIf="selectedItem">
+  <mat-selection-list [multiple]="false"
+    style="min-width: 200px;height: 100%;"
+    (selectionChange)="onSelectionChange($event)">
+    <mat-list-option *ngFor="let item of items"
+      [value]="item.link"
+      [selected]="item.link === selectedItem.link">
+      <a><mat-icon>{{ item.icon }}</mat-icon>{{ item.label }}</a>
+    </mat-list-option>
+  </mat-selection-list>
+</ng-container>
