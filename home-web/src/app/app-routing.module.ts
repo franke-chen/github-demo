@@ -35,6 +35,10 @@ const routes: Routes = [
     loadChildren: async () => (await import('./message/message.module')).MessageModule
   },
   {
+    path: 'test',
+    loadChildren: async () => (await import('./test/test.module')).TestModule
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }

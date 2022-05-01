@@ -7,15 +7,14 @@ import { AppComponent } from './root/app.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiKeyInterceptor } from './interceptors';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { FooterComponent } from './footer/footer.component';
 import { AppCommonService } from './services';
+import { Cloud77AngularModule } from 'cloud77-angular';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent,
-    FooterComponent
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +22,8 @@ import { AppCommonService } from './services';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    Cloud77AngularModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true },

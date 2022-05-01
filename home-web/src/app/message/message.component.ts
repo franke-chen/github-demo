@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-message',
   template: `
-  <a>token sync</a>
+  <a>message sync</a>
   `
 })
 export class MessageComponent implements OnInit {
@@ -15,11 +15,10 @@ export class MessageComponent implements OnInit {
   ngOnInit(): void {
 
     const target = this.route.snapshot.queryParamMap.get('target');
-    const type = this.route.snapshot.queryParamMap.get('type');
 
     let payload: string | undefined;
     let origin: string | undefined;
-    if (target && type) {
+    if (target) {
       switch (target) {
         case 'management-web':
           origin = environment.management_web;
@@ -31,28 +30,10 @@ export class MessageComponent implements OnInit {
           break;
       }
 
-      switch (type) {
-        case 'token':
-          const email = sessionStorage.getItem('email');
-          const accessToken = sessionStorage.getItem('access_token');
-          const refreshToken = sessionStorage.getItem('refresh_token');
-
-          if (email && accessToken && refreshToken) {
-            payload = JSON.stringify({
-              email,
-              access_token: accessToken,
-              refresh_token: refreshToken
-            });
-          }
-          break;
-
-        case 'hello':
-          payload = 'hello world';
-          break;
-        default:
-
-          break;
-      }
+      payload = JSON.stringify({
+        message: 'message from cloud77 web',
+        timestamp: new Date().toString()
+      });
 
       if (payload && origin) {
         setTimeout(() => {
