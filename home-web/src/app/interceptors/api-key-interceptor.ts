@@ -9,8 +9,16 @@ export class ApiKeyInterceptor implements HttpInterceptor {
     const apikey = sessionStorage.getItem('apikey');
     if (apikey)
     {
-      clone = clone.clone({ headers: clone.headers.set('x-api-key', apikey)});
+      clone = clone.clone({ headers: clone.headers.set('X-API-Key', apikey)});
     }
+
+    const email = sessionStorage.getItem('email');
+    if (email)
+    {
+      clone = clone.clone({ headers: clone.headers.set('X-User-Email', email)});
+    }
+
+    clone = clone.clone({ headers: clone.headers.set('X-API-Version', 'v0')});
 
     const token = sessionStorage.getItem('access_token');
     if (token)

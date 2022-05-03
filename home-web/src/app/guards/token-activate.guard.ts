@@ -31,6 +31,7 @@ export class TokenGuard implements CanActivate {
         const account = await this.service.tokenCheck();
 
         if (account) {
+
           sessionStorage.setItem('email', account.email);
           sessionStorage.setItem('name', account.name);
           sessionStorage.setItem('role', account.role);

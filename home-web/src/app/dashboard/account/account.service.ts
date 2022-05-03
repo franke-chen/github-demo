@@ -28,11 +28,11 @@ export class AccountService extends AppCommonService {
   }
 
   getRegions(): Promise<Region[]> {
-    return this.client.get<Region[]>(`${this.ClientAPIEndpoint}/info/regions`).toPromise();
+    return this.client.get<Region[]>(`${this.ClientAPIEndpoint}/service-info/regions`).toPromise();
   }
 
   getScopes(): Promise<Scope[]> {
-    return this.client.get<Scope[]>(`${this.ClientAPIEndpoint}/info/scopes`).toPromise();
+    return this.client.get<Scope[]>(`${this.ClientAPIEndpoint}/service-info/scopes`).toPromise();
   }
 
   postProfile(body: ProfilePostBody): Promise<HttpResponse<void>> {

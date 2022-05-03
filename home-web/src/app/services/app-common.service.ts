@@ -43,7 +43,7 @@ export class AppCommonService {
     if (apiKey) {
       return of({ apikey: String(apiKey) }).toPromise();
     } else {
-      return this.client.get<APIKey>(`${this.LoginAPIEndpoint}/info/apikey`).pipe(
+      return this.client.get<APIKey>(`${this.LoginAPIEndpoint}/apikey`).pipe(
         tap(res => {
           sessionStorage.setItem('apikey', res.apikey);
         })

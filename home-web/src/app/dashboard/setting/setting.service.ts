@@ -38,15 +38,13 @@ export class SettingService extends AppCommonService {
     return this.client.get(`${this.LoginAPIEndpoint}/products`).toPromise();
   }
 
-  public getTodos(): Promise<any> {
-    return this.client.get('https://jsonplaceholder.typicode.com/todos/1').pipe(
+  getAuthors(): Promise<any> {
+    return this.client.get(`${this.LoginAPIEndpoint}/authors`).pipe(
       tap(res => console.log(res))
     ).toPromise();
   }
 
-  getAuthors(): Promise<any> {
-    return this.client.get(`${this.LoginAPIEndpoint}/info/authors`).pipe(
-      tap(res => console.log(res))
-    ).toPromise();
+  postAuthor(name: string, title: string): Promise<any> {
+    return this.client.post(`${this.LoginAPIEndpoint}/authors`, { name, title }).toPromise();
   }
 }

@@ -18,6 +18,9 @@ export class SettingComponent implements OnInit {
   role = '';
   disableDelete = true;
 
+  authorName = "";
+  authorTitle = "";
+
   constructor(private snackbar: MatSnackBar, private router: Router, private service: SettingService) { }
 
   ngOnInit(): void {
@@ -60,11 +63,25 @@ export class SettingComponent implements OnInit {
     await this.service.deleteAccount(this.email, this.userId);
   }
 
-  getTodos(): void {
-    this.service.getTodos();
+
+  postAuthor(): void {
+    if (this.authorName && this.authorTitle) {
+      this.service.postAuthor(this.authorName, this.authorTitle);
+    } else {
+      alert('empty');
+    }
+
   }
 
   getProducts(): void {
-    this.service.getProducts();
+    this.service.getProducts().then(res => {
+      console.log(res);
+    });
+  }
+
+  getAuthors(): void {
+    this.service.getAuthors().then(res => {
+      console.log(res);
+    })
   }
 }
