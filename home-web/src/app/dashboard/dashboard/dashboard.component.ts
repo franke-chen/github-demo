@@ -63,7 +63,6 @@ export class DashboardComponent implements OnInit {
 
   onSelectionChange(event: MatSelectionListChange): void
   {
-    console.log(event.options[0].value);
     const item = this.items.find(i => i.value === event.options[0].value);
     if (item) {
       this.selectedItem = item;

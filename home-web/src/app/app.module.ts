@@ -10,6 +10,7 @@ import { ApiKeyInterceptor } from './interceptors';
 import { AppCommonService } from './services';
 import { Cloud77AngularModule } from 'cloud77-angular';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { MatPasswordStrengthModule } from "@angular-material-extensions/password-strength";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    Cloud77AngularModule
+    Cloud77AngularModule,
+    MatPasswordStrengthModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true },

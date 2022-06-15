@@ -200,7 +200,6 @@ export class LoginComponent implements OnInit {
           document.location.href = `${environment.super_web}/login?access_token=${this.token?.access_token}&refresh_token=${this.token?.refresh_token}`;
           break;
         default:
-          console.log('default');
           sessionStorage.setItem('access_token', this.token?.access_token as string);
           sessionStorage.setItem('refresh_token', this.token?.refresh_token as string);
 

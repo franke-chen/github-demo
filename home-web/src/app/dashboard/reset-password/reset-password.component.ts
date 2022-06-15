@@ -24,14 +24,11 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.tokenCheck().then(account => {
-      console.log('page can init');
-      console.log(account);
       if (account) {
         this.email = account.email;
       }
     }, err => {
       console.error(err);
-      console.log('page can not init');
       this.router.navigate(['/login']);
     });
   }
@@ -52,7 +49,6 @@ export class ResetPasswordComponent implements OnInit {
         newPassword: this.passwordNew
       }).then(() => {
         // this.snackbar.open('Info', 'Password is updated, please login again.', { duration: SNACKBAR_DURATION })
-
         sessionStorage.clear();
 
         setTimeout(() => {

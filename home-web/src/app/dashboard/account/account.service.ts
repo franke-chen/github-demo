@@ -44,7 +44,6 @@ export class AccountService extends AppCommonService {
   }
 
   postDevice(body: DevicePostBody): Promise<any> {
-    console.log(body);
     return this.client.post(`${this.ClientAPIEndpoint}/devices`, body).toPromise();
   }
 }

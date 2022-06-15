@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavigationItem } from 'cloud77-angular';
 
 @Component({
@@ -8,7 +9,10 @@ import { NavigationItem } from 'cloud77-angular';
 })
 export class TestComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
 
@@ -28,8 +32,12 @@ export class TestComponent implements OnInit {
 
   items: NavigationItem[] = [
     { label: 'zero', link: '', icon: 'dashboard' },
-    { label: 'one', link: 'ch1', icon: 'dashboard' },
-    { label: 'two', link: 'ch2', icon: 'dashboard' },
-    { label: 'three', link: 'ch3', icon: 'dashboard' }
+    { label: 'one', link: '/test/ch1', icon: 'dashboard' },
+    { label: 'two', link: '/test/ch2', icon: 'dashboard' },
+    { label: 'three', link: '/test/ch3', icon: 'dashboard' }
   ];
+
+  onLinkTo(link: string): void {
+    this.router.navigate([link], { relativeTo: this.route });
+  }
 }

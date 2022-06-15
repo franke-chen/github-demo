@@ -76,7 +76,6 @@ export class BannerComponent implements OnInit {
   }
 
   closeFullscreen() {
-    console.log(this.document);
     if (this.document) {
       if (this.document.exitFullscreen) {
         this.document.exitFullscreen();

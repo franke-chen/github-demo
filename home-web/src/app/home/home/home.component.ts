@@ -45,7 +45,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.platformId);
     console.log(isPlatformBrowser(this.platformId));
 
     this.guid = Guid.create().toString();
@@ -64,7 +63,6 @@ export class HomeComponent implements OnInit {
     });
 
     of(null).pipe(mapTo('hello'), delay(4000), tap(x => console.log(x))).subscribe(x => {
-      console.log('after tap');
       console.log(x);
     });
 
@@ -84,8 +82,6 @@ export class HomeComponent implements OnInit {
     generate(2, x => x <= 8, x => x + 3, x => '$'.repeat(x)).subscribe(x => console.log(x));
 
     from([1, 2, 3, 4, 5]).subscribe(x => console.log(x));
-
-    console.log('-------------------------');
 
     from(new Promise<string>(resolve => resolve('hello world'))).subscribe(x => console.log(x));
 
@@ -133,7 +129,6 @@ export class HomeComponent implements OnInit {
 
     of(1 , 2, 3, 4, 5).pipe(
       tap(i => {
-        console.log('----------------');
         console.log(i);
       }),
       map(i => {
@@ -148,12 +143,10 @@ export class HomeComponent implements OnInit {
         return of(-1);
       })
     ).subscribe(res => {
-      console.log('------------------after');
       console.log(res);
     });
 
     this.http.get<Bookmark[]>('assets/bookmarks.json').subscribe(res => {
-      console.log(res);
       this.bookmarks = res;
     });
 
@@ -162,10 +155,7 @@ export class HomeComponent implements OnInit {
 
   confirm(): void {
     // const result = confirm('are you sure');
-    // console.log(result);
-
     // const person = prompt('input name', 'todo');
-    // console.log(person);
 
     alert('todo\ntodo');
   }

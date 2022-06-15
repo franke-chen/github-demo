@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((e) => {
 
       if (e instanceof NavigationStart) {
-        console.log(e);
         this.activeLink = e.url;
       }
       // if (e instanceof NavigationEnd) {
@@ -35,13 +34,11 @@ export class AppComponent implements OnInit {
 
   onLogout(): void {
     this.title = 'you are logout.';
-    console.log('logout');
     this.router.navigate(['']);
   }
 
   onLinkTo(link: string): void {
     this.title = `you are linked to ${link}`;
-
     this.router.navigate([link]);
   }
 }

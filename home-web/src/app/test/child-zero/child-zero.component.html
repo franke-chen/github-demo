@@ -1,1 +1,71 @@
-<p>child-zero works!</p>
+<div markdown
+  [src]="'assets/CHANGELOG.md'">
+</div>
+
+<br/>
+
+<div fxFlex>
+  <!--password input filed-->
+  <mat-form-field appearance="outline" style="width: 100%" [color]="passwordComponent.color">
+    <mat-label>Password</mat-label>
+    <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
+    <input matInput #password
+           [type]="toggle.type"
+           [(ngModel)]="pwd"
+           required
+           placeholder="Password">
+    <mat-hint align="end" aria-live="polite">
+      {{password.value.length}} / {{passwordComponent.max}}
+    </mat-hint>
+  </mat-form-field>
+  <!--@angular-material-extensions/password-strength's main component-->
+  <mat-password-strength #passwordComponent
+                         (onStrengthChanged)="onStrengthChanged($event)"
+                         [password]="password.value">
+  </mat-password-strength>
+  <!--Password's strength info-->
+  <mat-password-strength-info
+    *ngIf="showDetails"
+    [passwordComponent]="passwordComponent">
+  </mat-password-strength-info>
+</div>
+
+<p><a target="_blank" href="https://v11.material.angular.io/cdk/drag-drop/overview">Angular CDK Drag Drop</a></p>
+
+<div class="example-box0" cdkDrag>
+  Drag me around
+</div>
+
+<hr/>
+
+<div class="example-container">
+  <h2>To do</h2>
+
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="todo"
+    [cdkDropListConnectedTo]="[doneList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>Done</h2>
+
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="done"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+  </div>
+</div>
+
+<div markdown
+  [data]="markdown">
+</div>
