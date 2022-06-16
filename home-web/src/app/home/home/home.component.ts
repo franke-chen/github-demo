@@ -44,11 +44,11 @@ export class HomeComponent implements OnInit {
   public childs!: QueryList<HomeChildComponent>;
 
   ngOnInit(): void {
-
     console.log(isPlatformBrowser(this.platformId));
-
     this.guid = Guid.create().toString();
+  }
 
+  private test(): void {
     const keydown$ = fromEvent<KeyboardEvent>(document, 'keydown');
     const keyup$ = fromEvent<KeyboardEvent>(document, 'keyup');
 
@@ -149,8 +149,6 @@ export class HomeComponent implements OnInit {
     this.http.get<Bookmark[]>('assets/bookmarks.json').subscribe(res => {
       this.bookmarks = res;
     });
-
-
   }
 
   confirm(): void {

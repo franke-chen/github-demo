@@ -10,7 +10,7 @@ import { ApiKeyInterceptor } from './interceptors';
 import { AppCommonService } from './services';
 import { Cloud77AngularModule } from 'cloud77-angular';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { MatPasswordStrengthModule } from "@angular-material-extensions/password-strength";
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 @NgModule({
   declarations: [

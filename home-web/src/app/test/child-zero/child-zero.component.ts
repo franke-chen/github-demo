@@ -10,9 +10,9 @@ export class ChildZeroComponent implements OnInit {
 
   markdown = '# hello\n+ todo1\n+ todo2';
 
-  pwd = "Abc123.456";
+  pwd = 'Abc123.456';
 
-  showDetails: boolean = false;
+  showDetails = false;
 
   todo = [
     'Get to work',
@@ -20,10 +20,6 @@ export class ChildZeroComponent implements OnInit {
     'Go home',
     'Fall asleep'
   ];
-
-  onStrengthChanged(strength: number) {
-    console.log('password strength = ', strength);
-  }
 
   done = [
     'Get up',
@@ -33,7 +29,11 @@ export class ChildZeroComponent implements OnInit {
     'Walk dog'
   ];
 
-  drop(event: CdkDragDrop<string[]>) {
+  onStrengthChanged(strength: number): void {
+    console.log('password strength = ', strength);
+  }
+
+  drop(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

@@ -11,43 +11,45 @@ export class NavigationComponent implements OnInit {
 
   @Input()
 
-  public get items() : NavigationItem[] {
-    return this._items;
+  public get items(): NavigationItem[] {
+    return this.itemsSrc;
   }
 
 
-  public set items(v : NavigationItem[]) {
-    this._items = v;
-    this.activeLink = this._items[0].link;
+  public set items(v: NavigationItem[]) {
+    this.itemsSrc = v;
+    this.activeLink = this.itemsSrc[0].link;
   }
 
   @Input()
 
-  public get activeLink() : string {
-    return this._activeLink;
+  public get activeLink(): string {
+    return this.link;
   }
 
-  public set activeLink(v : string) {
-    this._activeLink = v;
-    let link = v;
+  public set activeLink(v: string) {
+    this.link = v;
+    let l = v;
     if (v.includes('?')) {
-      link = v.split('?')[0];
+      l = v.split('?')[0];
     }
-    this.selectedItem = this._items.find(i => link.startsWith(i.link));
+    this.selectedItem = this.itemsSrc.find(i => l.startsWith(i.link));
   }
 
-  _activeLink: string = "";
+  private link = '';
 
-  private _items: NavigationItem[] = [];
+  private itemsSrc: NavigationItem[] = [];
+
   selectedItem?: NavigationItem;
 
   @Output()
   linkTo: EventEmitter<string> = new EventEmitter();
 
-  onSelectionChange(event: MatSelectionListChange)
+  onSelectionChange(event: MatSelectionListChange): void
   {
     this.linkTo.emit(event.options[0].value);
   }
+
   constructor() { }
 
   ngOnInit(): void {

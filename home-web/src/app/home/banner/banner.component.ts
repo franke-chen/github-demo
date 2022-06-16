@@ -35,14 +35,14 @@ export class BannerComponent implements OnInit {
           this.closeFullscreen();
         }
       }
-    })
+    });
   }
 
   @HostListener('document:fullscreenchange', ['$event'])
   @HostListener('document:webkitfullscreenchange', ['$event'])
   @HostListener('document:mozfullscreenchange', ['$event'])
   @HostListener('document:MSFullscreenChange', ['$event'])
-  fullscreenmodes(event: any) {
+  fullscreenmodes(event: Event): void {
     this.chkScreenMode();
   }
 
@@ -51,16 +51,16 @@ export class BannerComponent implements OnInit {
   }
 
   chkScreenMode(): void {
-    if(document.fullscreenElement){
-      //fullscreen
+    if (document.fullscreenElement) {
+      // fullscreen
       this.isFullScreen = true;
     }else{
-      //not in full screen
+      // not in full screen
       this.isFullScreen = false;
     }
   }
 
-  openFullscreen() {
+  openFullscreen(): void {
     if (this.elem.requestFullscreen) {
       this.elem.requestFullscreen();
     } else if (this.elem.mozRequestFullScreen) {
@@ -75,7 +75,7 @@ export class BannerComponent implements OnInit {
     }
   }
 
-  closeFullscreen() {
+  closeFullscreen(): void {
     if (this.document) {
       if (this.document.exitFullscreen) {
         this.document.exitFullscreen();

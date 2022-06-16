@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     { label: 'child c', link: '/child-c', icon: 'dashboard' }
   ];
 
-  activeLink = "/";
+  activeLink = '/';
 
   constructor(private router: Router) {}
 

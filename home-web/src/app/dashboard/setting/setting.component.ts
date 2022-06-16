@@ -18,8 +18,8 @@ export class SettingComponent implements OnInit {
   role = '';
   disableDelete = true;
 
-  authorName = "";
-  authorTitle = "";
+  authorName = '';
+  authorTitle = '';
 
   constructor(private snackbar: MatSnackBar, private router: Router, private service: SettingService) { }
 
@@ -82,6 +82,6 @@ export class SettingComponent implements OnInit {
   getAuthors(): void {
     this.service.getAuthors().then(res => {
       console.log(res);
-    })
+    });
   }
 }

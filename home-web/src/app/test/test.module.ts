@@ -12,7 +12,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MarkdownModule } from 'ngx-markdown';
 import { GridsterModule } from 'angular-gridster2';
-import { MatPasswordStrengthModule } from "@angular-material-extensions/password-strength";
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -30,13 +30,13 @@ import { MatTableModule } from '@angular/material/table';
     CommonModule,
     RouterModule.forChild([
       {
-        path: "",
+        path: '',
         component: TestComponent,
         children: [
-          { path: "", component: ChildZeroComponent },
-          { path: "ch1", component: ChildOneComponent },
-          { path: "ch2", component: ChildTwoComponent },
-          { path: "ch3", component: ChildThreeComponent }
+          { path: '', component: ChildZeroComponent },
+          { path: 'ch1', component: ChildOneComponent },
+          { path: 'ch2', component: ChildTwoComponent },
+          { path: 'ch3', component: ChildThreeComponent }
         ]
       }
     ]),

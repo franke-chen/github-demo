@@ -49,6 +49,8 @@ export class LoginComponent implements OnInit {
 
   public title!: string;
 
+  token?: TokenDto;
+
   ngOnInit(): void {
 
     document.title = 'Cloud77 Login';
@@ -99,8 +101,6 @@ export class LoginComponent implements OnInit {
     }
     this.clone_test();
   }
-
-  token?: TokenDto;
 
   login(): void {
 

@@ -9,6 +9,19 @@ import { NavigationItem } from 'cloud77-angular';
 })
 export class TestComponent implements OnInit {
 
+  title = 'hello cloud77';
+
+  visible = true;
+
+  username = 'phantom';
+
+  items: NavigationItem[] = [
+    { label: 'zero', link: '', icon: 'dashboard' },
+    { label: 'one', link: '/test/ch1', icon: 'dashboard' },
+    { label: 'two', link: '/test/ch2', icon: 'dashboard' },
+    { label: 'three', link: '/test/ch3', icon: 'dashboard' }
+  ];
+
   constructor(
     private router: Router,
     private route: ActivatedRoute
@@ -18,24 +31,11 @@ export class TestComponent implements OnInit {
 
   }
 
-  title = "hello cloud77";
-
-  visible = true;
-
-  username = "phantom";
-
   onLogout(): void {
     setTimeout(() => {
-      alert("you are logout.");
+      alert('you are logout.');
     }, 100);
   }
-
-  items: NavigationItem[] = [
-    { label: 'zero', link: '', icon: 'dashboard' },
-    { label: 'one', link: '/test/ch1', icon: 'dashboard' },
-    { label: 'two', link: '/test/ch2', icon: 'dashboard' },
-    { label: 'three', link: '/test/ch3', icon: 'dashboard' }
-  ];
 
   onLinkTo(link: string): void {
     this.router.navigate([link], { relativeTo: this.route });

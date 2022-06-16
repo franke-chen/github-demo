@@ -1,3 +1,5 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChildOneComponent } from './child-one.component';
@@ -8,7 +10,11 @@ describe('ChildOneComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChildOneComponent ]
+      declarations: [ ChildOneComponent ],
+      imports: [
+        CommonModule,
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
   });

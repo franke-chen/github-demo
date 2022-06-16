@@ -8,10 +8,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   @Input()
-  title = "todo";
+  title = 'todo';
 
   @Input()
-  username = "todo";
+  username = 'todo';
 
   @Output()
   logout: EventEmitter<void> = new EventEmitter();

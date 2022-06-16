@@ -8,12 +8,12 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
-  { path: "", component: HomeComponent },
-  { path: "child-a", component: ChildAComponent },
-  { path: "child-b", component: ChildBComponent },
-  { path: "child-c", component: ChildCComponent },
-  { path: "child-a/a", component: ChildAAComponent },
-  { path: "**", component: NotFoundComponent }
+  { path: '', component: HomeComponent },
+  { path: 'child-a', component: ChildAComponent },
+  { path: 'child-b', component: ChildBComponent },
+  { path: 'child-c', component: ChildCComponent },
+  { path: 'child-a/a', component: ChildAAComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

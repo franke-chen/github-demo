@@ -24,6 +24,8 @@ export class AppCommonService {
 
   public ClientAPIEndpoint = '/' + 'client-api';
 
+  private isValid = false;
+
   public deepClone<T>(value: T): T {
     return clone<T>(value);
   }
@@ -31,8 +33,6 @@ export class AppCommonService {
   public  getServiceHealth(): Promise<string> {
     return this.client.get(`${this.LoginAPIEndpoint}/health`, { responseType: 'text' }).toPromise<string>();
   }
-
-  private isValid = false;
 
   public get tokenIsValid(): boolean {
     return this.isValid;

@@ -11,34 +11,34 @@ export class LayoutComponent implements OnInit {
   visible = true;
 
   @Input()
-  username = "";
+  username = '';
 
   @Input()
-  title = "";
+  title = '';
 
   @Input()
   items: NavigationItem[] = [];
 
   @Input()
 
-  public get activeLink() : string {
-    return this._activeLink;
+  public get activeLink(): string {
+    return this.link;
   }
 
-  public set activeLink(v : string) {
-    this._activeLink = v;
+  public set activeLink(v: string) {
+    this.link = v;
     if (v === '/') {
       this.visible = false;
     } else {
-      let link = v;
+      let l = v;
       if (v.includes('?')) {
-        link = v.split('?')[0];
+        l = v.split('?')[0];
       }
-      this.visible = this.items.find(i => link.startsWith(i.link)) ? true : false;
+      this.visible = this.items.find(i => l.startsWith(i.link)) ? true : false;
     }
   }
 
-  _activeLink: string = "";
+  link = '';
 
   opened = true;
 

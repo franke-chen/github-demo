@@ -22,10 +22,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 interface BookMark {
-  id: string,
-  url: string,
-  title: string
-  tags: string[]
+  id: string;
+  url: string;
+  title: string;
+  tags: string[];
 }
 
 const Marks: BookMark[] = [
@@ -35,7 +35,7 @@ const Marks: BookMark[] = [
     tags: ['node', 'proxy'],
     url: 'https://www.runoob.com/nodejs/nodejs-tutorial.html'
   }
-]
+];
 
 @Component({
   selector: 'app-child-one',
