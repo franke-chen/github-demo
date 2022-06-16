@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve --port 61326 --proxy-config ./proxy.conf.json",
     "start-demo": "ng serve --port 61326 --project cloud77-angular-demo --proxy-config ./proxy.conf.json",
-    "build": "ng build  --prod --aot --source-map=false",
+    "build": "ng build --prod --aot --source-map=false",
     "build-cloud77-angular": "ng build --prod cloud77-angular",
     "test": "ng test",
     "test-ci": "ng test --watch=false --progress=false",

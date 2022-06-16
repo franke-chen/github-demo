@@ -7,8 +7,6 @@ import { AfterContentInit, AfterViewInit, Component, OnChanges, OnDestroy, OnIni
 })
 export class ChildTwoComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit, AfterContentInit {
 
-  id?: NodeJS.Timeout;
-
   count = 0;
   name = 'todo';
 

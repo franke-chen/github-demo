@@ -1,10 +1,15 @@
 FROM node:16-alpine3.15 AS build
 
 WORKDIR /usr/src/app
-COPY package.json ./
+COPY . .
+
+# COPY package.json ./
+# COPY cloud77-angular-0.0.1.tgz ./
+
+# RUN npm config set registry http://registry.npm.taobao.org/
+# RUN npm install
 
 RUN yarn
-COPY . .
 RUN yarn run build
 RUN echo "complete build stage"
 
