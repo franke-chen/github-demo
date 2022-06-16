@@ -1,16 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../shared/shared.module';
-import { HomeComponent } from './home/home.component';
+import { Cloud77AngularModule } from 'cloud77-angular';
+import { BannerComponent } from './banner/banner.component';
+import { HomeChildComponent, HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    HomeChildComponent,
+    BannerComponent
   ],
   imports: [
     CommonModule,
-    SharedModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressBarModule,
+    Cloud77AngularModule,
     RouterModule.forChild([
       { path: '', component: HomeComponent }
     ])

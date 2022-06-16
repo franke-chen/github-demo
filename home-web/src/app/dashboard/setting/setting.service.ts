@@ -1,11 +1,10 @@
 import { HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { BackendService } from 'src/app/backend.service';
-import { License, Profile } from 'src/app/interface';
+import { AppCommonService } from 'src/app/services';
 
 @Injectable()
-export class SettingService extends BackendService {
+export class SettingService extends AppCommonService {
 
   deleteAccount(email: string, userId: number): Promise<HttpResponse<void>> {
     let params: HttpParams = new HttpParams();
@@ -39,15 +38,13 @@ export class SettingService extends BackendService {
     return this.client.get(`${this.LoginAPIEndpoint}/products`).toPromise();
   }
 
-  public getTodos(): Promise<any> {
-    return this.client.get('https://jsonplaceholder.typicode.com/todos/1').pipe(
+  getAuthors(): Promise<any> {
+    return this.client.get(`${this.LoginAPIEndpoint}/authors`).pipe(
       tap(res => console.log(res))
     ).toPromise();
   }
 
-  getAuthors(): Promise<any> {
-    return this.client.get(`${this.LoginAPIEndpoint}/info/authors`).pipe(
-      tap(res => console.log(res))
-    ).toPromise();
+  postAuthor(name: string, title: string): Promise<any> {
+    return this.client.post(`${this.LoginAPIEndpoint}/authors`, { name, title }).toPromise();
   }
 }

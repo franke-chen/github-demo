@@ -30,10 +30,6 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     document.title = 'Cloud77 Sign Up';
     this.title = `Cloud77 Web (v${version})`;
-
-    this.service.pageInitCheck(false).then(() => {
-
-    });
   }
 
   sendEmailToken(): void {

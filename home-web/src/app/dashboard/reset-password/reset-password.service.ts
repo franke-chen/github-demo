@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BackendService } from 'src/app/backend.service';
+import { AppCommonService } from 'src/app/services';
 
 export interface PasswordPutBody {
   email: string;
@@ -9,7 +9,7 @@ export interface PasswordPutBody {
 }
 
 @Injectable()
-export class ResetPasswordService extends BackendService {
+export class ResetPasswordService extends AppCommonService {
   updatePassword(body: PasswordPutBody): Promise<HttpResponse<void>> {
     return this.client.put<void>(`${this.LoginAPIEndpoint}/passwords/reset`, body, { observe: 'response' }).toPromise();
   }

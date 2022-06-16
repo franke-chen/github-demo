@@ -1,8 +1,7 @@
 import { HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { BackendService } from 'src/app/backend.service';
-import { License, Profile } from 'src/app/interface';
+import { AppCommonService } from 'src/app/services';
 
 export interface AccountPostBody {
   token: string;
@@ -12,7 +11,7 @@ export interface AccountPostBody {
 }
 
 @Injectable()
-export class SignUpService extends BackendService {
+export class SignUpService extends AppCommonService {
   public getEmailToken(email: string): Promise<void> {
     const params: HttpParams = new HttpParams().set('email', email);
     return this.client.get<void>(`${this.LoginAPIEndpoint}/emailTokens`, { params }).toPromise();

@@ -3,34 +3,33 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { MaterialDesignModule } from './material-design.module';
-
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-
-import { MatCommonModule, MatNativeDateModule } from '@angular/material/core';
+import { AppComponent } from './root/app.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SharedModule } from './shared/shared.module';
-import { ApiKeyInterceptor } from './api-key-interceptor';
+import { ApiKeyInterceptor } from './interceptors';
+import { AppCommonService } from './services';
+import { Cloud77AngularModule } from 'cloud77-angular';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     AppRoutingModule,
-    SharedModule
+    HttpClientModule,
+    Cloud77AngularModule,
+    MatPasswordStrengthModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true },
+    AppCommonService
   ],
   bootstrap: [AppComponent]
 })

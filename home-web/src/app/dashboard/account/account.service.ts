@@ -1,10 +1,11 @@
 import { HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BackendService } from 'src/app/backend.service';
-import { Device, DevicePostBody, License, LicenseKey, LicensePostBody, Profile, ProfilePostBody, Region, Scope } from 'src/app/interface';
+
+import { Device, DevicePostBody, License, LicenseKey, LicensePostBody, Profile, ProfilePostBody, Region, Scope } from 'src/app/interfaces';
+import { AppCommonService } from 'src/app/services';
 
 @Injectable()
-export class AccountService extends BackendService {
+export class AccountService extends AppCommonService {
 
   getLicense(userId: number): Promise<License> {
     const params = new HttpParams().set('userId', userId.toString());
@@ -27,11 +28,11 @@ export class AccountService extends BackendService {
   }
 
   getRegions(): Promise<Region[]> {
-    return this.client.get<Region[]>(`${this.ClientAPIEndpoint}/info/regions`).toPromise();
+    return this.client.get<Region[]>(`${this.ClientAPIEndpoint}/service-info/regions`).toPromise();
   }
 
   getScopes(): Promise<Scope[]> {
-    return this.client.get<Scope[]>(`${this.ClientAPIEndpoint}/info/scopes`).toPromise();
+    return this.client.get<Scope[]>(`${this.ClientAPIEndpoint}/service-info/scopes`).toPromise();
   }
 
   postProfile(body: ProfilePostBody): Promise<HttpResponse<void>> {
@@ -43,7 +44,6 @@ export class AccountService extends BackendService {
   }
 
   postDevice(body: DevicePostBody): Promise<any> {
-    console.log(body);
     return this.client.post(`${this.ClientAPIEndpoint}/devices`, body).toPromise();
   }
 }

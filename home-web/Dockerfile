@@ -1,14 +1,19 @@
 FROM node:16-alpine3.15 AS build
 
 WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
-RUN npm install
 COPY . .
-RUN npm run build:ci
+
+# COPY package.json ./
+# COPY cloud77-angular-0.0.1.tgz ./
+
+# RUN npm config set registry http://registry.npm.taobao.org/
+# RUN npm install
+
+RUN yarn
+RUN yarn run build
 RUN echo "complete build stage"
 
 FROM nginx
-COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /usr/src/app/dist/home-web /usr/share/nginx/html/
 RUN echo "complete run stage"
 

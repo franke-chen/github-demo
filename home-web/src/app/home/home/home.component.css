@@ -62,7 +62,6 @@ p {
   display: flex;
   margin: 4px auto 4px;
   padding: 0 16px;
-  max-width: 960px;
   flex-direction: column;
   align-items: center;
   padding-bottom: 136px;
@@ -94,7 +93,7 @@ svg.material-icons:not(:last-child) {
   border: 1px solid #eee;
   background-color: #fafafa;
   height: 40px;
-  width: 200px;
+  width: 240px;
   margin: 0 8px 16px;
   padding: 16px;
   display: flex;
@@ -303,4 +302,8 @@ svg#clouds {
     display: none;
     visibility: hidden;
   }
+}
+
+th {
+  min-width: 100px;
 }

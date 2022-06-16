@@ -41,7 +41,9 @@ export class DashboardComponent implements OnInit {
   secondFormGroup!: FormGroup;
   title = '';
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.firstFormGroup = this.formBuilder.group({
@@ -50,13 +52,9 @@ export class DashboardComponent implements OnInit {
     this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+
     this.title = `Cloud77 Web (v${version})`;
-
     document.title = 'Cloud77 Dashboard';
-
-    // this.client.get('/login-api/accounts?email=chenqinglong@danfoss.com').subscribe(res => {
-    //   console.log(res);
-    // });
 
     this.name = sessionStorage.getItem('name');
     this.email = sessionStorage.getItem('email');
@@ -65,7 +63,6 @@ export class DashboardComponent implements OnInit {
 
   onSelectionChange(event: MatSelectionListChange): void
   {
-    console.log(event.options[0].value);
     const item = this.items.find(i => i.value === event.options[0].value);
     if (item) {
       this.selectedItem = item;

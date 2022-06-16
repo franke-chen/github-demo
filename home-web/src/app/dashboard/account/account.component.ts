@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Device, License, Profile, Region, Scope } from 'src/app/interface';
+import { Device, License, Profile, Region, Scope } from 'src/app/interfaces';
 import { SNACKBAR_DURATION } from 'src/environments/environment.share';
 import { AccountService } from './account.service';
 
@@ -62,9 +62,7 @@ export class AccountComponent implements OnInit {
   constructor(private service: AccountService, private router: Router, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.service.pageInitCheck(true).then(account => {
-      console.log('page can init');
-      console.log(account);
+    this.service.tokenCheck().then(account => {
       if (account) {
         this.email = account.email;
         this.name = account.name;
@@ -74,7 +72,6 @@ export class AccountComponent implements OnInit {
       }
     }, err => {
       console.error(err);
-      console.log('page can not init');
       this.router.navigate(['/login']);
     });
   }
@@ -82,7 +79,6 @@ export class AccountComponent implements OnInit {
   private async _pageLoadData(): Promise<void> {
 
     await this.service.getProfile(this.userId).then(res => {
-      console.log('------profile--------');
       this.profile = res;
       this.foundProfile = true;
     }, err => {
@@ -111,8 +107,6 @@ export class AccountComponent implements OnInit {
 
   saveProfile(): void {
     this.profileBtnDisabled = true;
-
-    console.log(this.profile);
 
     if (this.foundProfile) {
 
@@ -149,7 +143,6 @@ export class AccountComponent implements OnInit {
       scopeId: this.scopeId,
       regionId: this.regionId
     }).then(res => {
-      console.log(res);
       setTimeout(() => {
         this.getLicense();
       }, 0);
@@ -160,7 +153,6 @@ export class AccountComponent implements OnInit {
   }
 
   createMockDevice(): void {
-    console.log(this.userId);
     this.service.postDevice({
       email: this.email,
       userId: this.userId,
@@ -185,14 +177,13 @@ export class AccountComponent implements OnInit {
         reject('find no profile');
       }
     }, ).then(res => {
-      console.log(res);
       return Promise.resolve<string>('find profile');
     }, err => {
       console.log(err);
       return Promise.resolve('already catch error');
     })
     .then(res => {
-      console.log(res);
+
     }, err => {
       console.error(err);
       return Promise.resolve('todo');
@@ -201,13 +192,12 @@ export class AccountComponent implements OnInit {
       console.log(err);
     })
     .finally(() => {
-      console.log('end');
+
     });
   }
 
   async getLicense(): Promise<void> {
     await this.service.getLicense(this.userId).then(res => {
-      console.log('------license--------');
       this.license = res;
       this.foundLicense = true;
     }, err => {

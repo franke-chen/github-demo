@@ -1,12 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { fromEvent, of } from 'rxjs';
-import { TokenDto } from 'src/app/interface';
+import { ActivatedRoute, Router } from '@angular/router';
+import { fromEvent, of, Subject } from 'rxjs';
+import { TokenDto } from 'src/app/interfaces';
 import { LoginService } from './login.service';
 import { version } from 'package.json';
 import { tap } from 'rxjs/operators';
-import { SNACKBAR_DURATION } from 'src/environments/environment';
+import { environment, SNACKBAR_DURATION } from 'src/environments/environment';
+
+export enum LoginStatus {
+  error = 0,
+  success = 1
+}
+
+export interface LoginResult {
+  status: LoginStatus;
+  message?: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -17,17 +27,39 @@ import { SNACKBAR_DURATION } from 'src/environments/environment';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private service: LoginService,
     private matSnackbar: MatSnackBar,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private service: LoginService
+    ) {
+
+  }
 
   account = '';
   password = '';
   rememberme = true;
 
-  title = '';
+  loginChanged: Subject<LoginResult> = new Subject();
+
+  serviceHealth = false;
+
+  serviceStatus: 'signal_cellular_alt' | 'signal_cellular_connected_no_internet_4_bar' = 'signal_cellular_connected_no_internet_4_bar';
+
+  private from = '';
+
+  public title!: string;
+
+  token?: TokenDto;
 
   ngOnInit(): void {
+
+    document.title = 'Cloud77 Login';
+    this.title = `Cloud77 Web (v${version})`;
+
+    const fromQuery = this.route.snapshot.queryParamMap.get('from');
+    if (fromQuery) {
+      this.from = fromQuery;
+    }
 
     fromEvent(document, 'keydown').subscribe((event: Event) => {
       const eventArgs = event as KeyboardEvent;
@@ -43,20 +75,27 @@ export class LoginComponent implements OnInit {
       }
     });
 
-    this.title = `Cloud77 Web (v${version})`;
-    document.title = 'Cloud77 Login';
-
     this.loadData();
+
+    this.loginChanged.subscribe(result => {
+      this.onLoginChanged(result);
+    });
   }
 
   onAccountChange(event: any): void {
     if (this.account.includes('@')) {
       this.service.loginPreCheck(this.account).then(res => {
         if (res.userId < 0) {
-          this.matSnackbar.open('Error', 'Not existing account', { duration: SNACKBAR_DURATION });
+          this.loginChanged.next({
+            status: LoginStatus.error,
+            message: 'Not existing account'
+          });
         }
       }, err => {
-        this.matSnackbar.open('Error', err.error.message, { duration: SNACKBAR_DURATION });
+        this.loginChanged.next({
+          status: LoginStatus.error,
+          message: err.error.message
+        });
       });
 
     }
@@ -77,38 +116,47 @@ export class LoginComponent implements OnInit {
       name: this.account.includes('@') ? undefined : this.account.toLowerCase(),
       password: this.password
     }).then(res => {
-      this.service.saveToken(res as TokenDto, this.rememberme);
+      // this.service.saveToken(res as TokenDto, this.rememberme);
+      this.token = res as TokenDto;
       return Promise.resolve();
     }, err => {
       console.error(err);
-      this.matSnackbar.open('error', err.error.message, { duration: SNACKBAR_DURATION });
+      this.loginChanged.next({
+        status: LoginStatus.error,
+        message: err.error.message
+      });
+
       return Promise.reject();
-    }).then(res => {
-      this.router.navigate(['/dashboard']);
+    }).then(() => {
+      this.loginChanged.next({ status: LoginStatus.success });
     });
   }
 
   async loadData(): Promise<void> {
     await this.service.getServiceHealth().then(res => {
       console.log(res);
+      this.serviceHealth = true;
     }, err => {
       console.error(err);
-      this.matSnackbar.open('Error', 'Fail to connect with service endpoint', { duration: SNACKBAR_DURATION });
+    }).finally(() => {
+      this.serviceStatus = this.serviceHealth ? 'signal_cellular_alt' : 'signal_cellular_connected_no_internet_4_bar';
     });
 
-    await this.service.pageInitCheck(false).then(
-      undefined, err => {
-      console.log(err);
-      this.matSnackbar.open('Error', 'Fail to connect with service endpoint', { duration: SNACKBAR_DURATION });
-    });
-
-    const data = this.service.getAccountFromCache();
-    if (data && data.account) {
-      this.account = data.account;
-      this.rememberme = data.rememberme;
+    if (!this.serviceHealth) {
+      this.loginChanged.next({
+        status: LoginStatus.error,
+        message: 'Fail to connect with service endpoint'
+      });
     }
 
-    of({ user: 'franke' }).pipe(tap(x => console.log(x.user))).subscribe(res => {
+    const data = this.service.getAccountFromCache();
+    if (data) {
+      this.account = data;
+    }
+
+    of({ user: 'franke' }).pipe(
+      tap(x => console.log(x.user))
+    ).subscribe(res => {
       console.log(res.user);
     }, err => {
       console.log(err);
@@ -138,5 +186,28 @@ export class LoginComponent implements OnInit {
       console.log(objectA3.foo.bar);
       console.log(objectA4.foo.bar);
     }, 0);
+  }
+
+  onLoginChanged(event: LoginResult): void {
+    if (event.status === LoginStatus.error) {
+      this.matSnackbar.open('error', event.message , { duration: SNACKBAR_DURATION });
+    } else {
+      switch (this.from) {
+        case 'management-web':
+          document.location.href = `${environment.management_web}/login?access_token=${this.token?.access_token}&refresh_token=${this.token?.refresh_token}`;
+          break;
+        case 'super-web':
+          document.location.href = `${environment.super_web}/login?access_token=${this.token?.access_token}&refresh_token=${this.token?.refresh_token}`;
+          break;
+        default:
+          sessionStorage.setItem('access_token', this.token?.access_token as string);
+          sessionStorage.setItem('refresh_token', this.token?.refresh_token as string);
+
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 0);
+          break;
+      }
+    }
   }
 }

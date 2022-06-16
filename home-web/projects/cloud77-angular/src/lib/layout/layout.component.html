@@ -1,0 +1,17 @@
+<ng-container *ngIf="visible">
+  <cloud77-header [title]="title" [username]="username" (menuToggle)="onMenuToggle()" (logout)="onLogout()"></cloud77-header>
+</ng-container>
+
+<mat-sidenav-container style="flex: 1 1 auto;">
+  <mat-sidenav align="start" mode="side" [opened]="opened && visible">
+    <cloud77-navigation [items]="items" [activeLink]="activeLink" (linkTo)="onLinkTo($event);"></cloud77-navigation>
+  </mat-sidenav>
+
+  <div class="content">
+    <ng-content></ng-content>
+  </div>
+</mat-sidenav-container>
+
+<ng-container>
+  <cloud77-footer></cloud77-footer>
+</ng-container>
