@@ -112,19 +112,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -164,18 +151,6 @@
             "tsConfig": "projects/my-lib/tsconfig.spec.json",
             "karmaConfig": "projects/my-lib/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/my-lib/tsconfig.lib.json",
-              "projects/my-lib/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -203,18 +178,6 @@
             "main": "projects/cloud77-angular/src/test.ts",
             "tsConfig": "projects/cloud77-angular/tsconfig.spec.json",
             "karmaConfig": "projects/cloud77-angular/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/cloud77-angular/tsconfig.lib.json",
-              "projects/cloud77-angular/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
@@ -321,19 +284,6 @@
               "projects/cloud77-angular-demo/src/styles.css"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/cloud77-angular-demo/tsconfig.app.json",
-              "projects/cloud77-angular-demo/tsconfig.spec.json",
-              "projects/cloud77-angular-demo/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         },
         "e2e": {
