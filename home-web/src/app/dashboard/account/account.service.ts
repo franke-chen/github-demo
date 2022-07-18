@@ -7,39 +7,39 @@ import { AppCommonService } from 'src/app/services';
 @Injectable()
 export class AccountService extends AppCommonService {
 
-  getLicense(userId: number): Promise<License> {
+  getLicense(userId: number): Promise<License | undefined> {
     const params = new HttpParams().set('userId', userId.toString());
     return this.client.get<License>(`${this.ClientAPIEndpoint}/licenses`, { params }).toPromise();
   }
 
-  getLicenseKey(userId: number): Promise<LicenseKey> {
+  getLicenseKey(userId: number): Promise<LicenseKey | undefined> {
     const params = new HttpParams().set('userId', userId.toString());
     return this.client.get<LicenseKey>(`${this.ClientAPIEndpoint}/licenses/keys`, { params }).toPromise();
   }
 
-  getProfile(userId: number): Promise<Profile> {
+  getProfile(userId: number): Promise<Profile | undefined> {
     const params = new HttpParams().set('userId', userId.toString());
     return this.client.get<Profile>(`${this.ClientAPIEndpoint}/profiles`, { params }).toPromise();
   }
 
-  getDevices(userId: number): Promise<Device[]> {
+  getDevices(userId: number): Promise<Device[] | undefined> {
     const params = new HttpParams().set('userId', userId.toString());
     return this.client.get<Device[]>(`${this.ClientAPIEndpoint}/devices`, { params }).toPromise();
   }
 
-  getRegions(): Promise<Region[]> {
+  getRegions(): Promise<Region[] | undefined> {
     return this.client.get<Region[]>(`${this.ClientAPIEndpoint}/service-info/regions`).toPromise();
   }
 
-  getScopes(): Promise<Scope[]> {
+  getScopes(): Promise<Scope[] | undefined> {
     return this.client.get<Scope[]>(`${this.ClientAPIEndpoint}/service-info/scopes`).toPromise();
   }
 
-  postProfile(body: ProfilePostBody): Promise<HttpResponse<void>> {
+  postProfile(body: ProfilePostBody): Promise<HttpResponse<void> | undefined> {
     return this.client.post<void>(`${this.ClientAPIEndpoint}/profiles`, body, { observe: 'response' }).toPromise();
   }
 
-  postLicense(body: LicensePostBody): Promise<HttpResponse<void>> {
+  postLicense(body: LicensePostBody): Promise<HttpResponse<void> | undefined> {
     return this.client.post<void>(`${this.ClientAPIEndpoint}/licenses`, body, { observe: 'response' }).toPromise();
   }
 

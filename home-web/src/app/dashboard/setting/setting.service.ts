@@ -6,28 +6,28 @@ import { AppCommonService } from 'src/app/services';
 @Injectable()
 export class SettingService extends AppCommonService {
 
-  deleteAccount(email: string, userId: number): Promise<HttpResponse<void>> {
+  deleteAccount(email: string, userId: number): Promise<HttpResponse<void> | undefined> {
     let params: HttpParams = new HttpParams();
     params = params.set('email', email);
     params = params.set('userId', userId.toString());
     return this.client.delete<void>(`${this.LoginAPIEndpoint}/accounts/${userId}`, { params, observe: 'response' }).toPromise();
   }
 
-  deleteDevices(email: string, userId: number): Promise<HttpResponse<void>> {
+  deleteDevices(email: string, userId: number): Promise<HttpResponse<void> | undefined> {
     let params: HttpParams = new HttpParams();
     params = params.set('email', email);
     params = params.set('userId', userId.toString());
     return this.client.delete<void>(`${this.ClientAPIEndpoint}/devices`, { params, observe: 'response' }).toPromise();
   }
 
-  deleteLicense(email: string, userId: number): Promise<HttpResponse<void>> {
+  deleteLicense(email: string, userId: number): Promise<HttpResponse<void> | undefined> {
     let params: HttpParams = new HttpParams();
     params = params.set('email', email);
     params = params.set('userId', userId.toString());
     return this.client.delete<void>(`${this.ClientAPIEndpoint}/licenses`, { params, observe: 'response' }).toPromise();
   }
 
-  deleteProfile(email: string, userId: number): Promise<HttpResponse<void>> {
+  deleteProfile(email: string, userId: number): Promise<HttpResponse<void> | undefined> {
     let params: HttpParams = new HttpParams();
     params = params.set('email', email);
     params = params.set('userId', userId.toString());

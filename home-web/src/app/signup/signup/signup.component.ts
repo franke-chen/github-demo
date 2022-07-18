@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { version } from 'package.json';
 import { SNACKBAR_DURATION } from 'src/environments/environment.share';
 import { SignUpService } from './signup.service';
+import info from 'package.json';
 
 @Component({
   selector: 'app-signup',
@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     document.title = 'Cloud77 Sign Up';
-    this.title = `Cloud77 Web (v${version})`;
+    this.title = `Cloud77 Web (v${info.version})`;
   }
 
   sendEmailToken(): void {

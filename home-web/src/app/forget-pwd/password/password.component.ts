@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { version } from 'package.json';
+import info from 'package.json';
 
 @Component({
   selector: 'app-password',
@@ -28,7 +28,7 @@ export class PasswordComponent implements OnInit {
       console.log(res);
     });
 
-    this.title = `Cloud77 Web (v${version})`;
+    this.title = `Cloud77 Web (v${info.version})`;
 
     document.title = 'Cloud77 Forget Password';
   }

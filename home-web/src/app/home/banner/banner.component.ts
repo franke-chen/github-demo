@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, HostListener, Inject, OnInit } from '@angular/core';
-import { version } from 'package.json';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import info from 'package.json';
 
 @Component({
   selector: 'app-banner',
@@ -19,7 +19,7 @@ export class BannerComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private document: any
   ) { }
-  version = version;
+  version = info.version;
 
   ngOnInit(): void {
     this.chkScreenMode();

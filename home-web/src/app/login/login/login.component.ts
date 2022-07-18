@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { fromEvent, of, Subject } from 'rxjs';
 import { TokenDto } from 'src/app/interfaces';
 import { LoginService } from './login.service';
-import { version } from 'package.json';
 import { tap } from 'rxjs/operators';
 import { environment, SNACKBAR_DURATION } from 'src/environments/environment';
+import info from 'package.json';
 
 export enum LoginStatus {
   error = 0,
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
     document.title = 'Cloud77 Login';
-    this.title = `Cloud77 Web (v${version})`;
+    this.title = `Cloud77 Web (v${info.version})`;
 
     const fromQuery = this.route.snapshot.queryParamMap.get('from');
     if (fromQuery) {
@@ -85,7 +85,8 @@ export class LoginComponent implements OnInit {
   onAccountChange(event: any): void {
     if (this.account.includes('@')) {
       this.service.loginPreCheck(this.account).then(res => {
-        if (res.userId < 0) {
+
+        if (res && res.userId < 0) {
           this.loginChanged.next({
             status: LoginStatus.error,
             message: 'Not existing account'

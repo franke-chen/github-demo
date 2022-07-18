@@ -1,12 +1,12 @@
 {
   "name": "cloud77-angular",
-  "version": "0.0.1",
+  "version": "13.0.2",
   "peerDependencies": {
-    "@angular/common": "^12.x",
-    "@angular/core": "^12.x",
-    "@angular/forms": "^12.x",
-    "@angular/cdk": "^12.x",
-    "@angular/material": "^12.x"
+    "@angular/common": "^13.0.0",
+    "@angular/core": "^13.0.0",
+    "@angular/forms": "^13.0.0",
+    "@angular/cdk": "^13.0.0",
+    "@angular/material": "^13.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

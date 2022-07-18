@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelectionListChange } from '@angular/material/list';
 import { Router } from '@angular/router';
-import { version } from 'package.json';
+import info from 'package.json';
 
 interface DashboardItem {
   label: string;
@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
       secondCtrl: ['', Validators.required]
     });
 
-    this.title = `Cloud77 Web (v${version})`;
+    this.title = `Cloud77 Web (v${info.version})`;
     document.title = 'Cloud77 Dashboard';
 
     this.name = sessionStorage.getItem('name');

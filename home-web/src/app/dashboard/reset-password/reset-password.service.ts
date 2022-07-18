@@ -10,7 +10,7 @@ export interface PasswordPutBody {
 
 @Injectable()
 export class ResetPasswordService extends AppCommonService {
-  updatePassword(body: PasswordPutBody): Promise<HttpResponse<void>> {
+  updatePassword(body: PasswordPutBody): Promise<HttpResponse<void> | undefined> {
     return this.client.put<void>(`${this.LoginAPIEndpoint}/passwords/reset`, body, { observe: 'response' }).toPromise();
   }
 }

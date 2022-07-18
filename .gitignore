@@ -402,3 +402,4 @@ Thumbs.db
 */release-dir/*
 */dist/*
 */coverage/*
+*/.angular/*

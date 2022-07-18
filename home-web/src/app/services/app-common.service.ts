@@ -30,15 +30,15 @@ export class AppCommonService {
     return clone<T>(value);
   }
 
-  public  getServiceHealth(): Promise<string> {
-    return this.client.get(`${this.LoginAPIEndpoint}/health`, { responseType: 'text' }).toPromise<string>();
+  public  getServiceHealth(): Promise<string | undefined> {
+    return this.client.get(`${this.LoginAPIEndpoint}/health`, { responseType: 'text' }).toPromise();
   }
 
   public get tokenIsValid(): boolean {
     return this.isValid;
   }
 
-  public getAPIKey(): Promise<APIKey> {
+  public getAPIKey(): Promise<APIKey | undefined> {
     const apiKey = sessionStorage.getItem('apikey');
     if (apiKey) {
       return of({ apikey: String(apiKey) }).toPromise();

@@ -22,8 +22,12 @@ export class APIKeyGuard implements CanActivate {
       return true;
     } else {
       const res = await this.service.getAPIKey();
-      sessionStorage.setItem('apikey', res.apikey);
-      return true;
+      if (res) {
+        sessionStorage.setItem('apikey', res.apikey);
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }

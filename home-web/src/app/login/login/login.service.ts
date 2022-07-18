@@ -68,7 +68,7 @@ export class LoginService extends AppCommonService {
     return this.client.get(`${this.LoginAPIEndpoint}/passwords/tokens?email=${email}`).toPromise();
   }
 
-  public loginPreCheck(email: string): Promise<PreLogin> {
+  public loginPreCheck(email: string): Promise<PreLogin | undefined> {
     const params = new HttpParams().set('email', email);
     return this.client.get<PreLogin>(`${this.LoginAPIEndpoint}/prelogins`, { params }).toPromise();
   }

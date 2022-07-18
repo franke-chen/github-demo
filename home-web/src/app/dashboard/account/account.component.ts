@@ -79,18 +79,24 @@ export class AccountComponent implements OnInit {
   private async _pageLoadData(): Promise<void> {
 
     await this.service.getProfile(this.userId).then(res => {
-      this.profile = res;
-      this.foundProfile = true;
+      if (res) {
+        this.profile = res;
+        this.foundProfile = true;
+      }
     }, err => {
       console.error(err);
     });
 
     await this.service.getScopes().then(res => {
-      this.scopes = res;
+      if (res) {
+        this.scopes = res;
+      }
     });
 
     await this.service.getRegions().then(res => {
-      this.regions = res;
+      if (res) {
+        this.regions = res;
+      }
     });
 
     this.scopeId = this.scopes[0].guid;
@@ -198,8 +204,10 @@ export class AccountComponent implements OnInit {
 
   async getLicense(): Promise<void> {
     await this.service.getLicense(this.userId).then(res => {
-      this.license = res;
-      this.foundLicense = true;
+      if (res) {
+        this.license = res;
+        this.foundLicense = true;
+      }
     }, err => {
       console.error(err);
 
@@ -210,7 +218,9 @@ export class AccountComponent implements OnInit {
 
   async getDevices(): Promise<void> {
     await this.service.getDevices(this.userId).then(res => {
-      this.devices = res;
+      if (res) {
+        this.devices = res;
+      }
     }, err => {
       console.error(err);
     });
