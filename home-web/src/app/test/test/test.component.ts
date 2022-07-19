@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavigationItem } from 'cloud77-angular';
+import { NavigationItem } from '@franke-chen/cloud77-ui-angular';
 
 @Component({
   selector: 'app-test',

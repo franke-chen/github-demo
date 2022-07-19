@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
-import { Cloud77AngularModule } from 'cloud77-angular';
+import { Cloud77UIModule } from '@franke-chen/cloud77-ui-angular';
 import { BannerComponent } from './banner/banner.component';
 import { HomeChildComponent, HomeComponent } from './home/home.component';
 
@@ -19,7 +19,7 @@ import { HomeChildComponent, HomeComponent } from './home/home.component';
     MatButtonModule,
     MatIconModule,
     MatProgressBarModule,
-    Cloud77AngularModule,
+    Cloud77UIModule,
     RouterModule.forChild([
       { path: '', component: HomeComponent }
     ])
