@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { TokenGuard, APIKeyGuard } from './guards';
+import { APIKeyGuard } from './guards';
 
 const routes: Routes = [
   {
@@ -22,10 +22,6 @@ const routes: Routes = [
     path: 'forget-password',
     loadChildren: async () => (await import('./forget-pwd/forget-pwd.module')).ForgetPasswordModule,
     canActivate: [APIKeyGuard]
-  },
-  { path: 'dashboard',
-    loadChildren: async () => (await import('./dashboard/dashboard.module')).DashboardModule,
-    canActivate: [APIKeyGuard, TokenGuard]
   },
   { path: 'tutorial',
     loadChildren: async () => (await import('./tutorial/tutorial.module')).TutorialModule

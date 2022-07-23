@@ -193,22 +193,23 @@ export class LoginComponent implements OnInit {
     if (event.status === LoginStatus.error) {
       this.matSnackbar.open('error', event.message , { duration: SNACKBAR_DURATION });
     } else {
-      switch (this.from) {
-        case 'management-web':
-          document.location.href = `${environment.management_web}/login?access_token=${this.token?.access_token}&refresh_token=${this.token?.refresh_token}`;
-          break;
-        case 'super-web':
-          document.location.href = `${environment.super_web}/login?access_token=${this.token?.access_token}&refresh_token=${this.token?.refresh_token}`;
-          break;
-        default:
-          sessionStorage.setItem('access_token', this.token?.access_token as string);
-          sessionStorage.setItem('refresh_token', this.token?.refresh_token as string);
+      document.location.href = `${this.from}/login?access_token=${this.token?.access_token}&refresh_token=${this.token?.refresh_token}`;
+      // switch (this.from) {
+      //   case 'management-web':
+      //     document.location.href = `${environment.management_web}/login?access_token=${this.token?.access_token}&refresh_token=${this.token?.refresh_token}`;
+      //     break;
+      //   case 'super-web':
+      //     document.location.href = `${environment.super_web}/login?access_token=${this.token?.access_token}&refresh_token=${this.token?.refresh_token}`;
+      //     break;
+      //   default:
+      //     sessionStorage.setItem('access_token', this.token?.access_token as string);
+      //     sessionStorage.setItem('refresh_token', this.token?.refresh_token as string);
 
-          setTimeout(() => {
-            this.router.navigate(['/dashboard']);
-          }, 0);
-          break;
-      }
+      //     setTimeout(() => {
+      //       this.router.navigate(['/dashboard']);
+      //     }, 0);
+      //     break;
+      // }
     }
   }
 }
