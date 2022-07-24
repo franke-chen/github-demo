@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ApiKeyInterceptor } from '../interceptors';
 import { LoginRoutingModule } from './login.routing.module';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './login.component';
 
 
 @NgModule({

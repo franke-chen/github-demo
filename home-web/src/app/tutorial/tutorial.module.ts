@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TutorialRoutingModule } from './tutorial.routing.module';
-import { TutorialComponent } from './tutorial/tutorial.component';
+import { TutorialComponent } from './tutorial.component';
 
 @NgModule({
   declarations: [

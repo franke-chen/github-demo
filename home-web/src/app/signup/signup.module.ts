@@ -12,7 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SignUpRoutingModule } from './signup.routing.module';
-import { SignupComponent } from './signup/signup.component';
+import { SignupComponent } from './signup.component';
 
 @NgModule({
   declarations: [

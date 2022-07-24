@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TutorialComponent } from './tutorial/tutorial.component';
+import { TutorialComponent } from './tutorial.component';
 
 
 @NgModule({

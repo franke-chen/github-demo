@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from '../not-found/not-found.component';
-import { SignupComponent } from './signup/signup.component';
+import { SignupComponent } from './signup.component';
 
 @NgModule({
   imports: [

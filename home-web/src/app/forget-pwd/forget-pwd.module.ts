@@ -12,7 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ForgetPasswordRoutingModule } from './forget-pwd.routing.module';
-import { PasswordComponent } from './password/password.component';
+import { PasswordComponent } from './password.component';
 
 @NgModule({
   declarations: [

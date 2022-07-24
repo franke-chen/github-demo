@@ -6,7 +6,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
 import { Cloud77UIModule } from '@franke-chen/cloud77-ui-angular';
 import { BannerComponent } from './banner/banner.component';
-import { HomeChildComponent, HomeComponent } from './home/home.component';
+import { HomeChildComponent, HomeComponent } from './home.component';
 
 @NgModule({
   declarations: [

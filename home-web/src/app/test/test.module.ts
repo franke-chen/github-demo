@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { TestComponent } from './test/test.component';
+import { TestComponent } from './test.component';
 import { ChildOneComponent } from './child-one/child-one.component';
 import { ChildTwoComponent } from './child-two/child-two.component';
 import { ChildThreeComponent } from './child-three/child-three.component';
