@@ -1,5 +1,5 @@
 {
-  "name": "@cloud77/home-web",
+  "name": "@cloud77/home-page",
   "version": "0.5.2",
   "scripts": {
     "ng": "ng",

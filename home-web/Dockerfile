@@ -10,4 +10,4 @@ RUN yarn
 RUN yarn run build
 
 FROM nginx
-COPY --from=build /usr/src/app/dist/home-web /usr/share/nginx/html/
+COPY --from=build /usr/src/app/dist/home-page /usr/share/nginx/html/
