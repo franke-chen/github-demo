@@ -1,8 +1,0 @@
-version: '3.9'
-services:
-
-  home-web-nginx-server:
-    build: .
-    container_name: "cloud77-home-web"
-    ports:
-      - "7000:80"

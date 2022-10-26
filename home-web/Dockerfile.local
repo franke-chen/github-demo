@@ -1,4 +1,0 @@
-FROM nginx
-COPY dist/home-web /usr/share/nginx/html/
-RUN echo "complete run stage"
-RUN echo "Complete building Cloud77 Home Web Image"
